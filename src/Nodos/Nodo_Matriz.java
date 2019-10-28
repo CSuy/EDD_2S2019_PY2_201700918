@@ -9,6 +9,6 @@ package Nodos;
  *
  * @author MiriamLeticia
  */
-public class Arbol_AVL {
+public class Nodo_Matriz {
     
 }

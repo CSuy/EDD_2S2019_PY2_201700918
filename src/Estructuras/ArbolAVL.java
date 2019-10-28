@@ -9,6 +9,6 @@ package Estructuras;
  *
  * @author MiriamLeticia
  */
-public class Nodo_AVL {
+public class ArbolAVL {
     
 }
