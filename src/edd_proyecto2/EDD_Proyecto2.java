@@ -1,7 +1,9 @@
 package edd_proyecto2;
 
 import Aplicacion.Inicio_Sesion;
+import Estructuras.TablaHash;
 import java.security.NoSuchAlgorithmException;
+import static java.time.Clock.system;
 import java.util.Base64;
 import java.util.Scanner;
 
@@ -23,6 +25,19 @@ public class EDD_Proyecto2 {
         System.out.println(cadena2);*/
         /*Inicio_Sesion i = new Inicio_Sesion();
         i.setVisible(true);*/
+        TablaHash t = new TablaHash();
+        Scanner n = new Scanner(System.in);
+        while(true){
+            System.out.println("Elija 1 o 2");
+            int j = n.nextInt();
+            if(j==1){
+                t.Insertar("nombre1", "123");
+                System.out.println(t.getCapacidad());
+            }else{
+                break;
+            }
+        }
+        
     }
     
 }

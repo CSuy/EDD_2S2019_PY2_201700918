@@ -31,13 +31,13 @@ public class TablaHash {
             Utilizado++;
         }else{
             Nodo_Hash aux = Primero;
-            if(aux.getAbajo() == null){
-                
-            }else{
-                while(aux.getAbajo()!=null){
-                    
-                }
+            while(aux.getAbajo()!=null){
+                aux= aux.getAbajo();
             }
+            aux.setAbajo(nuevo);
+            Utilizado++;
+            capacidad();
+            System.out.println("capacidad actual: " + Capacidad + " Utilizado: " + Utilizado);
         }
     }
     
@@ -47,7 +47,7 @@ public class TablaHash {
         for (int i = 0; i < Nombre.length; i++) {
             divisor = divisor + (int) Nombre[i];
         }
-        int indice_final = divisor % this.Capacidad;
+        int indice_final = divisor % (this.Capacidad - 1);
         return indice_final;
     }
     
@@ -55,19 +55,22 @@ public class TablaHash {
         int aux_capacidad;
         double aux_utilizacion = this.Capacidad*0.75;
         if(Utilizado>aux_utilizacion){
-            aux_capacidad = Primo();
+            System.out.println("Entre: ");
+            aux_capacidad = Primo(true);
             this.Capacidad = aux_capacidad;
+        }else{
+            System.out.println("No entre");
         }
     }
     
-    public int Primo(){
-        int nuevo = 0, limite=11, cap=this.Capacidad;
-        boolean p = true;
+    public int Primo(boolean p){
+        int nuevo = 0, limite=1000, cap=this.Capacidad;
+        //boolean p = true;
         while(true){
-            if(limite>cap){
+            if(limite-1>cap+1){
                 break;
             }else{
-                limite = limite + 10;
+                limite = limite + 1000;
             }
         }
         boolean[] primos = new boolean[limite+1];
@@ -81,7 +84,7 @@ public class TablaHash {
         }
         for (int i = 2; i < primos.length; i++) {
             if(primos[i]==true){
-                if(i>cap && p==true){
+                if(p==true && i>cap){
                     nuevo = i;
                     p=false;
                 }
@@ -89,4 +92,29 @@ public class TablaHash {
         }
         return nuevo;
     }
+
+    public Nodo_Hash getPrimero() {
+        return Primero;
+    }
+
+    public void setPrimero(Nodo_Hash Primero) {
+        this.Primero = Primero;
+    }
+
+    public int getCapacidad() {
+        return Capacidad;
+    }
+
+    public void setCapacidad(int Capacidad) {
+        this.Capacidad = Capacidad;
+    }
+
+    public int getUtilizado() {
+        return Utilizado;
+    }
+
+    public void setUtilizado(int Utilizado) {
+        this.Utilizado = Utilizado;
+    }
+    
 }

@@ -61,6 +61,11 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
         btnRegistro.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnRegistro.setText("Registrarse");
+        btnRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,6 +132,12 @@ public class Inicio_Sesion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Hubo un error", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
+        Registro r = new Registro();
+        r.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRegistroActionPerformed
 
     /**
      * @param args the command line arguments
