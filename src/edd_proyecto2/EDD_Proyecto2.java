@@ -27,14 +27,28 @@ public class EDD_Proyecto2 {
         i.setVisible(true);*/
         TablaHash t = new TablaHash();
         Scanner n = new Scanner(System.in);
-        while(true){
-            System.out.println("Elija 1 o 2");
+        Scanner n1 = new Scanner(System.in);
+        boolean menu = true;
+        while (menu == true) {
+            System.out.println("Elija 1, 2 o 3");
             int j = n.nextInt();
-            if(j==1){
-                t.Insertar("nombre1", "123");
-                System.out.println(t.getCapacidad());
-            }else{
-                break;
+            switch (j) {
+                case 1:
+                    System.out.println("Ingrese usuario");
+                    String usuario = n1.nextLine();
+                    t.Insertar(usuario, "123");
+                    System.out.println("La Capacidad es: " +  t.getCapacidad());
+                    break;
+                case 2:
+                    t.imprimir();
+                    break;
+                case 3:
+                    t.Insertar("nombre2", "123");
+                    System.out.println(t.getCapacidad());
+                    break;
+                default:
+                    menu = false;
+                    break;
             }
         }
         

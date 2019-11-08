@@ -11,16 +11,14 @@ package Nodos;
  */
 public class Nodo_Hash {
     private Nodo_Hash Abajo;
-    private int Indice;
-    private String Contraseña;
     private String Usuario;
+    private String Contraseña;
 
-    public Nodo_Hash(int Indice, String Contraseña, String Usuario) {
-        this.Abajo = null;
-        this.Indice = Indice;
-        this.Contraseña = Contraseña;
+    public Nodo_Hash(String Usuario, String Contraseña) {
         this.Usuario = Usuario;
+        this.Contraseña = Contraseña;
     }
+
 
     public Nodo_Hash getAbajo() {
         return Abajo;
@@ -28,14 +26,6 @@ public class Nodo_Hash {
 
     public void setAbajo(Nodo_Hash Abajo) {
         this.Abajo = Abajo;
-    }
-
-    public int getIndice() {
-        return Indice;
-    }
-
-    public void setIndice(int Indice) {
-        this.Indice = Indice;
     }
 
     public String getContraseña() {

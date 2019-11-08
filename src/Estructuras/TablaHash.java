@@ -13,57 +13,109 @@ import Nodos.Nodo_Hash;
  */
 public class TablaHash {
     private Nodo_Hash Primero;
+    private Nodo_Hash[] Tabla;
     private int Capacidad;
     private int Utilizado;
     
     public TablaHash(){
         this.Utilizado = 0;
         this.Capacidad = 7;
-        this.Primero = null;
+        this.Tabla = new Nodo_Hash[Capacidad];
     }
     
     public void Insertar(String Usuario, String Contraseña){
         int indice = Calculo_Indice(Usuario);
         boolean iguales = false;
-        Nodo_Hash nuevo = new Nodo_Hash(indice,Usuario,Contraseña);
-        if(Primero==null){
-            Primero = nuevo;
-            Utilizado++;
-        }else{
-            Nodo_Hash aux = Primero;
-            while(aux.getAbajo()!=null){
-                aux= aux.getAbajo();
+        Nodo_Hash nuevo = new Nodo_Hash(Usuario,Contraseña);
+        if(indice<this.Capacidad){
+            if(Tabla[indice] == null){
+                Tabla[indice] = nuevo;
+                Utilizado++;
+                capacidad();
+            }else{
+                int contador = 1;
+                indice = ReCalculo_Indice(indice,contador);
+                while(Tabla[indice] != null){
+                    contador = contador + 1;
+                    indice = ReCalculo_Indice(indice,contador);
+                }
+                Tabla[indice] = nuevo;
+                Utilizado++;
+                capacidad();
             }
-            aux.setAbajo(nuevo);
-            Utilizado++;
-            capacidad();
-            System.out.println("capacidad actual: " + Capacidad + " Utilizado: " + Utilizado);
+        }else{
+            indice = indice - Capacidad;
+            if(Tabla[indice] == null){
+                Tabla[indice] = nuevo;
+                Utilizado++;
+                capacidad();
+            }else{
+                int contador = 1;
+                indice = ReCalculo_Indice(indice,contador);
+                while(Tabla[indice] != null){
+                    contador = contador + 1;
+                    indice = ReCalculo_Indice(indice,contador);
+                }
+                Tabla[indice] = nuevo;
+                Utilizado++;
+                capacidad();
+            }
+        }
+        
+    }
+    
+    public void imprimir(){
+        int contador = 0;
+        for(Nodo_Hash aux1: Tabla){
+            if(aux1 != null){
+                System.out.println("Esta ocupando: " + contador + " Esta el usuario: " + aux1.getUsuario());
+            }
+            contador = contador + 1;
         }
     }
     
-    public int Calculo_Indice(String nombre){
+    private int nuevo_indice(int numero){
+        int nueva_posicion = 0;
+        if(numero < Capacidad){
+            nueva_posicion = numero;
+        }else{
+            nueva_posicion = numero - 7;
+            nueva_posicion = nuevo_indice(nueva_posicion);
+        }
+        return nueva_posicion;
+    }
+    
+    private int Calculo_Indice(String nombre){
         char[] Nombre = nombre.toCharArray();
         int divisor=0;
         for (int i = 0; i < Nombre.length; i++) {
             divisor = divisor + (int) Nombre[i];
         }
         int indice_final = divisor % (this.Capacidad - 1);
+        System.out.println("Modulo: " + divisor + " Indice: " + indice_final);
         return indice_final;
     }
     
-    public void capacidad(){
+    private int ReCalculo_Indice(int index, int intento){
+        int nuevo_indice, nuevo;
+        nuevo_indice = index + intento * intento;
+        nuevo = nuevo_indice(nuevo_indice);
+        return nuevo;
+    }
+    
+    private void capacidad(){
         int aux_capacidad;
         double aux_utilizacion = this.Capacidad*0.75;
         if(Utilizado>aux_utilizacion){
-            System.out.println("Entre: ");
             aux_capacidad = Primo(true);
             this.Capacidad = aux_capacidad;
+            this.Utilizado = 0;
+            ReInsertar();
         }else{
-            System.out.println("No entre");
         }
     }
     
-    public int Primo(boolean p){
+    private int Primo(boolean p){
         int nuevo = 0, limite=1000, cap=this.Capacidad;
         //boolean p = true;
         while(true){
@@ -92,6 +144,17 @@ public class TablaHash {
         }
         return nuevo;
     }
+    
+    private void ReInsertar(){
+        Nodo_Hash[] aux = Tabla.clone();
+        Tabla = null;
+        Tabla = new Nodo_Hash[Capacidad];
+        for (Nodo_Hash aux1 : aux) {
+            if (aux1 != null) {
+                Insertar(aux1.getUsuario(), aux1.getContraseña());
+            }
+        }
+    }
 
     public Nodo_Hash getPrimero() {
         return Primero;
@@ -117,4 +180,11 @@ public class TablaHash {
         this.Utilizado = Utilizado;
     }
     
+    public Nodo_Hash[] getTabla() {
+        return Tabla;
+    }
+
+    public void setTabla(Nodo_Hash[] tabla) {
+        this.Tabla = tabla;
+    }
 }
