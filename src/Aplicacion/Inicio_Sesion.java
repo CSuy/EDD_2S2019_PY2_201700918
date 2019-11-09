@@ -124,7 +124,9 @@ public class Inicio_Sesion extends javax.swing.JFrame {
             usuario = LblUsuario.getText();
             contraseña = LblPass.getText();
             if(usuario.equals("Admin") && contraseña.equals("Admin")){
-                
+                Ventana_Administrador r = new Ventana_Administrador();
+                r.setVisible(true);
+                dispose();
             }else{
                 JOptionPane.showMessageDialog(null,"Error en Credenciales", "error", JOptionPane.WARNING_MESSAGE);
             }

@@ -2,6 +2,7 @@ package edd_proyecto2;
 
 import Aplicacion.Inicio_Sesion;
 import Estructuras.TablaHash;
+import Nodos.Nodo_Hash;
 import java.security.NoSuchAlgorithmException;
 import static java.time.Clock.system;
 import java.util.Base64;
@@ -23,11 +24,12 @@ public class EDD_Proyecto2 {
         String prueba = sha.toHexString(sha.getSHA(cadena2));
         System.out.println("El Hash es: " + prueba);
         System.out.println(cadena2);*/
-        /*Inicio_Sesion i = new Inicio_Sesion();
-        i.setVisible(true);*/
-        TablaHash t = new TablaHash();
+        Inicio_Sesion i = new Inicio_Sesion();
+        i.setVisible(true);
+        /*TablaHash t = new TablaHash();
         Scanner n = new Scanner(System.in);
         Scanner n1 = new Scanner(System.in);
+        Scanner n2 = new Scanner(System.in);
         boolean menu = true;
         while (menu == true) {
             System.out.println("Elija 1, 2 o 3");
@@ -43,14 +45,23 @@ public class EDD_Proyecto2 {
                     t.imprimir();
                     break;
                 case 3:
-                    t.Insertar("nombre2", "123");
-                    System.out.println(t.getCapacidad());
+                    System.out.println("Escriba el nombre que va a buscar");
+                    String user = n2.nextLine();
+                    Nodo_Hash us = t.Buscar(user);
+                    if(us != null){
+                        System.out.println("Se encontro el usuario: " + us.getUsuario());
+                    }else{
+                        System.out.println("No Existe el usuario");
+                    }
+                    break;
+                case 4:
+                    t.Graficar();
                     break;
                 default:
                     menu = false;
                     break;
             }
-        }
+        }*/
         
     }
     

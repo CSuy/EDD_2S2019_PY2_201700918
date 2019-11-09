@@ -6,10 +6,14 @@
 package Aplicacion;
 
 import Estructuras.TablaHash;
+import Nodos.Nodo_Hash;
 import edd_proyecto2.SHA256;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,8 +26,11 @@ public class Ventana_Administrador extends javax.swing.JFrame {
      */
     TablaHash tabla = new TablaHash();
     SHA256 sha256 = new SHA256();
+    ArrayList<String> problema = new ArrayList<>();
+    int problemas = 0, con_exito = 0;
     public Ventana_Administrador() {
         initComponents();
+        btnProblemas.setText("Con Problemas: " + problemas);
         this.setLocationRelativeTo(null);
     }
 
@@ -38,7 +45,12 @@ public class Ventana_Administrador extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnCargar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtRuta = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Tabla_Problem = new javax.swing.JTable();
+        btnProblemas = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +65,37 @@ public class Ventana_Administrador extends javax.swing.JFrame {
             }
         });
 
+        Tabla_Problem.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Usuario", "Razon"
+            }
+        ));
+        jScrollPane1.setViewportView(Tabla_Problem);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+        );
+
+        btnProblemas.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        btnProblemas.setText("jButton1");
+        btnProblemas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProblemasActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,13 +104,24 @@ public class Ventana_Administrador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(btnCargar)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jLabel1)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 8, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnProblemas)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(205, 205, 205))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,8 +131,14 @@ public class Ventana_Administrador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(316, Short.MAX_VALUE))
+                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProblemas)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -86,28 +146,48 @@ public class Ventana_Administrador extends javax.swing.JFrame {
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         try{
-            String ruta = "";
+            String ruta = txtRuta.getText();
             FileReader leer = new FileReader(ruta);
             BufferedReader br = new BufferedReader(leer);
             String Fila="";
             String contraseña = "";
             String usuario = "";
-            while((Fila=br.readLine())!=null){
+            boolean encabezado = false;
+            while((Fila=br.readLine())!= null){
                 String[] datos = Fila.split(",");
                 usuario = datos[0];
                 contraseña = datos[1];
-                boolean existe = false; /*Crear un metodo de busqueda de usuarios en la tabla hash*/
-                if (existe == false) {
-                    if (contraseña.length() >= 8) {
-                        byte[] n = sha256.getSHA(contraseña);
-                        
+                if(encabezado != false){
+                    Nodo_Hash existe = tabla.Buscar(usuario); /*Crear un metodo de busqueda de usuarios en la tabla hash*/
+                    if (existe == null) {
+                        if (contraseña.length() >= 8) {
+                            contraseña = sha256.toHexString(sha256.getSHA(contraseña));
+                            tabla.Insertar(usuario, contraseña);
+                            con_exito++;
+                        }else{
+                            String causa = usuario + ";" + "Contraseña muy pequeña";
+                            problema.add(causa);
+                            problemas++;
+                        }
+                    }else{
+                        String causa = usuario + ";" + "El usuario ya existe";
+                        problema.add(causa);
+                        problemas++;
                     }
+                }else{
+                    encabezado = true;
                 }
             }
+            JOptionPane.showMessageDialog(null, "Usuarios Ingresados con Exito: " + con_exito + "\n" + "Con Problemas: " + problemas);
+            btnProblemas.setText("Con Problemas: " + problemas);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Se Produjo un error al cargar el archivo");
         }
     }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnProblemasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProblemasActionPerformed
+        CargarDatos(Tabla_Problem);
+    }//GEN-LAST:event_btnProblemasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,8 +225,29 @@ public class Ventana_Administrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabla_Problem;
     private javax.swing.JButton btnCargar;
+    private javax.swing.JButton btnProblemas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
+
+    private void CargarDatos(JTable tabla_Problem) {
+        for(String aux1: problema){
+            String[] para = aux1.split(";");
+            MostrarDatos(tabla_Problem,para[0],para[1]);
+        }
+    }
+
+    private void MostrarDatos(JTable tabla_Problem, String use, String razon) {
+        DefaultTableModel model=(DefaultTableModel) tabla_Problem.getModel();
+        Object[] filaI = new Object[2];
+        filaI[0]=use;
+        filaI[1]=razon;
+        model.addRow(filaI);
+        tabla_Problem.setModel(model);
+    }
 }

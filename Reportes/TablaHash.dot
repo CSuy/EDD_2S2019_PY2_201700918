@@ -1,0 +1,22 @@
+digraph guia{ 
+tbl [
+shape=plaintext
+label=<
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>0</td><td>Usuario: Ricardo123 Contraseña: 123</td></tr> 
+<tr><td>1</td><td>Usuario: Josesito123 Contraseña: 123</td></tr> 
+<tr><td>2</td><td>Usuario: Juan123 Contraseña: 123</td></tr> 
+<tr><td>3</td><td>Usuario: Antonio123 Contraseña: 123</td></tr> 
+<tr><td>4</td></tr> 
+<tr><td>5</td></tr> 
+<tr><td>6</td><td>Usuario: CSUY123 Contraseña: 123</td></tr> 
+<tr><td>7</td><td>Usuario: Pedro123 Contraseña: 123</td></tr> 
+<tr><td>8</td><td>Usuario: Mateo Contraseña: 123</td></tr> 
+<tr><td>9</td></tr> 
+<tr><td>10</td><td>Usuario: Cristian Contraseña: 123</td></tr> 
+<tr><td>11</td><td>Usuario: Dennis Contraseña: 123</td></tr> 
+<tr><td>12</td><td>Usuario: Alberto Contraseña: 123</td></tr> 
+
+</table>
+>];
+}

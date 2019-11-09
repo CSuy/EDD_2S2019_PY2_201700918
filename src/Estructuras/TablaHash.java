@@ -6,6 +6,12 @@
 package Estructuras;
 
 import Nodos.Nodo_Hash;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,40 +31,28 @@ public class TablaHash {
     
     public void Insertar(String Usuario, String Contraseña){
         int indice = Calculo_Indice(Usuario);
+        int indice_aux = indice;
         boolean iguales = false;
         Nodo_Hash nuevo = new Nodo_Hash(Usuario,Contraseña);
         if(indice<this.Capacidad){
-            if(Tabla[indice] == null){
-                Tabla[indice] = nuevo;
-                Utilizado++;
-                capacidad();
-            }else{
-                int contador = 1;
-                indice = ReCalculo_Indice(indice,contador);
-                while(Tabla[indice] != null){
-                    contador = contador + 1;
-                    indice = ReCalculo_Indice(indice,contador);
+            try{
+                if(Tabla[indice] == null){
+                    Utilizado++;
+                    capacidad();
+                    Tabla[indice] = nuevo;
+                }else{
+                    int contador = 1;
+                    indice = ReCalculo_Indice(Usuario,contador);
+                    Utilizado++;
+                    capacidad();
+                    while(Tabla[indice] != null){
+                        contador = contador + 1;
+                        indice = ReCalculo_Indice(Usuario,contador);
+                    }
+                    Tabla[indice] = nuevo;
                 }
-                Tabla[indice] = nuevo;
-                Utilizado++;
-                capacidad();
-            }
-        }else{
-            indice = indice - Capacidad;
-            if(Tabla[indice] == null){
-                Tabla[indice] = nuevo;
-                Utilizado++;
-                capacidad();
-            }else{
-                int contador = 1;
-                indice = ReCalculo_Indice(indice,contador);
-                while(Tabla[indice] != null){
-                    contador = contador + 1;
-                    indice = ReCalculo_Indice(indice,contador);
-                }
-                Tabla[indice] = nuevo;
-                Utilizado++;
-                capacidad();
+            }catch(Exception e){
+                
             }
         }
         
@@ -79,7 +73,7 @@ public class TablaHash {
         if(numero < Capacidad){
             nueva_posicion = numero;
         }else{
-            nueva_posicion = numero - 7;
+            nueva_posicion = numero - Capacidad;
             nueva_posicion = nuevo_indice(nueva_posicion);
         }
         return nueva_posicion;
@@ -91,15 +85,16 @@ public class TablaHash {
         for (int i = 0; i < Nombre.length; i++) {
             divisor = divisor + (int) Nombre[i];
         }
-        int indice_final = divisor % (this.Capacidad - 1);
+        int indice_final = divisor % (this.Capacidad);
         System.out.println("Modulo: " + divisor + " Indice: " + indice_final);
         return indice_final;
     }
     
-    private int ReCalculo_Indice(int index, int intento){
-        int nuevo_indice, nuevo;
-        nuevo_indice = index + intento * intento;
-        nuevo = nuevo_indice(nuevo_indice);
+    private int ReCalculo_Indice(String user_name, int intento){
+        int nuevo_indice, nuevo, extra = Calculo_Indice(user_name) + intento * intento;
+        //nuevo_indice = extra % Capacidad;
+        //nuevo_indice = extra;
+        nuevo = nuevo_indice(extra);
         return nuevo;
     }
     
@@ -154,6 +149,79 @@ public class TablaHash {
                 Insertar(aux1.getUsuario(), aux1.getContraseña());
             }
         }
+    }
+    
+    public Nodo_Hash Buscar(String user){
+        int indice = Calculo_Indice(user), contador = 0;
+        Nodo_Hash encontrado = null;
+        int aux = indice;
+        if(Utilizado>0){
+            if(Tabla[indice]!=null){
+                if(Tabla[indice].getUsuario().equals(user)){
+                    encontrado = Tabla[indice];
+                }else{
+                    while(contador<Capacidad){
+                        indice = ReCalculo_Indice(user,contador);
+                        if(Tabla[indice] != null){
+                            if(Tabla[indice].getUsuario().equals(user)){
+                                encontrado = Tabla[indice];
+                                break;
+                            }
+                        }else{
+                            break;
+                        }
+                        contador++;
+                    }
+                }
+            }
+        }
+        return encontrado;
+    }
+    
+    public void Graficar(){
+        try{
+            String ruta = "Reportes/TablaHash.dot";
+            String contenido = "digraph guia{ \n";
+            contenido += "tbl [\n";
+            contenido += "shape=plaintext\n";
+            contenido += "label=<\n";
+            contenido += "<table border='0' cellborder='1' color='blue' cellspacing='0'>\n";
+            contenido += dotContenido();
+            contenido += "\n</table>\n";
+            contenido += ">];\n";
+            contenido += "}";
+            File file = new File(ruta);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(contenido);
+            bw.close();
+            try{
+                String cmd = "dot -Tjpg " + ruta + " -o " + "Reportes/TablaHash.jpg";
+                try {
+                    Runtime.getRuntime().exec(cmd);
+                } catch (IOException ex) {
+                    System.out.println("No se genero a imagen");
+                }
+            }catch(Exception e){
+                System.out.println("No se genero a imagen");
+            }
+        }catch(IOException x){
+            System.out.println("Se produjo un error con el archivo dot");
+        }
+    }
+    
+    private String dotContenido(){
+        String cuerpo = "";
+        int contador = 0;
+        for(Nodo_Hash aux1: Tabla){
+            if(aux1 != null){
+                cuerpo += "<tr><td>" + contador + "</td><td>Usuario: " + aux1.getUsuario() +" Contraseña: " + aux1.getContraseña() + "</td></tr> \n";
+            }else{
+                cuerpo += "<tr><td>" + contador + "</td></tr> \n";
+            }
+            contador = contador + 1;
+        }
+        return cuerpo;
     }
 
     public Nodo_Hash getPrimero() {
