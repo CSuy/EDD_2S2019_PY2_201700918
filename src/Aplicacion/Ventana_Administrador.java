@@ -5,6 +5,7 @@
  */
 package Aplicacion;
 
+import App_Reportes.Reporte_Hash;
 import Estructuras.TablaHash;
 import Nodos.Nodo_Hash;
 import edd_proyecto2.SHA256;
@@ -31,6 +32,7 @@ public class Ventana_Administrador extends javax.swing.JFrame {
     public Ventana_Administrador() {
         initComponents();
         btnProblemas.setText("Con Problemas: " + problemas);
+        tabla.Graficar();
         this.setLocationRelativeTo(null);
     }
 
@@ -51,6 +53,7 @@ public class Ventana_Administrador extends javax.swing.JFrame {
         Tabla_Problem = new javax.swing.JTable();
         btnProblemas = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +86,7 @@ public class Ventana_Administrador extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
         );
 
         btnProblemas.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
@@ -94,34 +97,48 @@ public class Ventana_Administrador extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        jButton1.setText("Reporte");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        jButton2.setText("Cerrar Sesion");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnCargar)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCargar)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnProblemas)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)))
+                        .addGap(0, 64, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnProblemas)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(228, 228, 228)
                 .addComponent(jLabel1)
-                .addGap(205, 205, 205))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +152,8 @@ public class Ventana_Administrador extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProblemas)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -180,6 +198,7 @@ public class Ventana_Administrador extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(null, "Usuarios Ingresados con Exito: " + con_exito + "\n" + "Con Problemas: " + problemas);
             btnProblemas.setText("Con Problemas: " + problemas);
+            tabla.Graficar();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Se Produjo un error al cargar el archivo");
         }
@@ -188,6 +207,18 @@ public class Ventana_Administrador extends javax.swing.JFrame {
     private void btnProblemasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProblemasActionPerformed
         CargarDatos(Tabla_Problem);
     }//GEN-LAST:event_btnProblemasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Reporte_Hash r = new Reporte_Hash();
+        r.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Inicio_Sesion n = new Inicio_Sesion();
+        n.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +260,7 @@ public class Ventana_Administrador extends javax.swing.JFrame {
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnProblemas;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

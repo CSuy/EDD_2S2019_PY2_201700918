@@ -5,6 +5,9 @@
  */
 package Aplicacion;
 
+import Estructuras.TablaHash;
+import Nodos.Nodo_Hash;
+import edd_proyecto2.SHA256;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,12 +15,19 @@ import javax.swing.JOptionPane;
  * @author MiriamLeticia
  */
 public class Inicio_Sesion extends javax.swing.JFrame {
-
+    TablaHash ta = new TablaHash();
+    Nodo_Hash[] uu;
+    SHA256 sha256 = new SHA256();
     /**
      * Creates new form Inicio_Sesion
      */
     public Inicio_Sesion() {
         initComponents();
+        try{
+            uu = ta.getTabla();
+        }catch(Exception ex){
+            
+        }
         this.setLocationRelativeTo(null);
     }
 
@@ -120,15 +130,26 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String usuario = "";
         String contraseña = "";
+        Nodo_Hash user;
         try{
             usuario = LblUsuario.getText();
             contraseña = LblPass.getText();
+            user = ta.Buscar(usuario);
             if(usuario.equals("Admin") && contraseña.equals("Admin")){
                 Ventana_Administrador r = new Ventana_Administrador();
                 r.setVisible(true);
                 dispose();
+            }else if(user != null){
+                String aux_contra = sha256.toHexString(sha256.getSHA(contraseña));
+                if(aux_contra.equals(user.getContraseña())){
+                    Interfaz_Usuario ii = new Interfaz_Usuario();
+                    ii.setVisible(true);
+                    dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Error en Credenciales, Contraseña Incorrecta", "error", JOptionPane.WARNING_MESSAGE);
+                }
             }else{
-                JOptionPane.showMessageDialog(null,"Error en Credenciales", "error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Error en Credenciales, Usuario No Existe", "error", JOptionPane.WARNING_MESSAGE);
             }
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Hubo un error", "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -6,6 +6,7 @@
 package Aplicacion;
 
 import Estructuras.TablaHash;
+import Nodos.Nodo_Hash;
 import edd_proyecto2.SHA256;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -121,13 +122,13 @@ public class Registro extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         String usuario = txtUsuario.getText();
         String contraseña = txtContraseña.getText();
-        boolean existe = false; /*Crear un metodo en la tabla hash para busqueda de usuario*/
-        if (existe == false) {
+        Nodo_Hash existe = tabla.Buscar(usuario); /*Crear un metodo en la tabla hash para busqueda de usuario*/
+        if (existe == null) {
             if(contraseña.length() >= 8){
                 try {
                     byte[] n = sha256.getSHA(contraseña);
                     String contraseña_hash = sha256.toHexString(n);
-                    tabla.Insertar(usuario, "");
+                    tabla.Insertar(usuario, contraseña_hash);
                     JOptionPane.showMessageDialog(null, "Usuario Creado con exito");
                 } catch (NoSuchAlgorithmException ex) {
                     //Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);

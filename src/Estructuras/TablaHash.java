@@ -19,14 +19,12 @@ import java.util.logging.Logger;
  */
 public class TablaHash {
     private Nodo_Hash Primero;
-    private Nodo_Hash[] Tabla;
-    private int Capacidad;
-    private int Utilizado;
+    private static Nodo_Hash[] Tabla = new Nodo_Hash[7];
+    private static int Capacidad = 7;
+    private static int Utilizado = 0;
     
     public TablaHash(){
-        this.Utilizado = 0;
-        this.Capacidad = 7;
-        this.Tabla = new Nodo_Hash[Capacidad];
+        
     }
     
     public void Insertar(String Usuario, String Contraseña){
@@ -253,6 +251,6 @@ public class TablaHash {
     }
 
     public void setTabla(Nodo_Hash[] tabla) {
-        this.Tabla = tabla;
+        TablaHash.Tabla = tabla;
     }
 }
