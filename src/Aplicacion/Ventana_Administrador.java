@@ -8,6 +8,7 @@ package Aplicacion;
 import App_Reportes.Reporte_Hash;
 import Estructuras.TablaHash;
 import Nodos.Nodo_Hash;
+import edd_proyecto2.Obtener_Hora;
 import edd_proyecto2.SHA256;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -180,7 +181,9 @@ public class Ventana_Administrador extends javax.swing.JFrame {
                     if (existe == null) {
                         if (contraseña.length() >= 8) {
                             contraseña = sha256.toHexString(sha256.getSHA(contraseña));
-                            tabla.Insertar(usuario, contraseña);
+                            Obtener_Hora ob = new Obtener_Hora();
+                            String fecha_creacion = ob.obtener_fecha();
+                            tabla.Insertar(usuario, contraseña, fecha_creacion);
                             con_exito++;
                         }else{
                             String causa = usuario + ";" + "Contraseña muy pequeña";

@@ -143,6 +143,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                 String aux_contra = sha256.toHexString(sha256.getSHA(contraseña));
                 if(aux_contra.equals(user.getContraseña())){
                     Interfaz_Usuario ii = new Interfaz_Usuario();
+                    ii.Usuario(user);
                     ii.setVisible(true);
                     dispose();
                 }else{

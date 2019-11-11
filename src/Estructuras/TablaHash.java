@@ -6,6 +6,7 @@
 package Estructuras;
 
 import Nodos.Nodo_Hash;
+import edd_proyecto2.Obtener_Hora;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -27,11 +28,11 @@ public class TablaHash {
         
     }
     
-    public void Insertar(String Usuario, String Contraseña){
+    public void Insertar(String Usuario, String Contraseña, String Fecha_Creacion){
         int indice = Calculo_Indice(Usuario);
         int indice_aux = indice;
         boolean iguales = false;
-        Nodo_Hash nuevo = new Nodo_Hash(Usuario,Contraseña);
+        Nodo_Hash nuevo = new Nodo_Hash(Usuario,Contraseña,Fecha_Creacion);
         if(indice<this.Capacidad){
             try{
                 if(Tabla[indice] == null){
@@ -144,7 +145,7 @@ public class TablaHash {
         Tabla = new Nodo_Hash[Capacidad];
         for (Nodo_Hash aux1 : aux) {
             if (aux1 != null) {
-                Insertar(aux1.getUsuario(), aux1.getContraseña());
+                Insertar(aux1.getUsuario(), aux1.getContraseña(), aux1.getCreacion());
             }
         }
     }
@@ -213,7 +214,7 @@ public class TablaHash {
         int contador = 0;
         for(Nodo_Hash aux1: Tabla){
             if(aux1 != null){
-                cuerpo += "<tr><td>" + contador + "</td><td>Usuario: " + aux1.getUsuario() +" Contraseña: " + aux1.getContraseña() + "</td></tr> \n";
+                cuerpo += "<tr><td>" + contador + "</td><td>Usuario: " + aux1.getUsuario() +" Contraseña: " + aux1.getContraseña() + "</td><td>" + " Creacion: " + aux1.getCreacion() + "</td></tr> \n";
             }else{
                 cuerpo += "<tr><td>" + contador + "</td></tr> \n";
             }

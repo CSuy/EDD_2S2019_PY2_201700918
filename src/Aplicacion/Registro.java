@@ -7,6 +7,7 @@ package Aplicacion;
 
 import Estructuras.TablaHash;
 import Nodos.Nodo_Hash;
+import edd_proyecto2.Obtener_Hora;
 import edd_proyecto2.SHA256;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -128,7 +129,9 @@ public class Registro extends javax.swing.JFrame {
                 try {
                     byte[] n = sha256.getSHA(contraseña);
                     String contraseña_hash = sha256.toHexString(n);
-                    tabla.Insertar(usuario, contraseña_hash);
+                    Obtener_Hora ob = new Obtener_Hora();
+                    String Fecha_Creacion = ob.obtener_fecha();
+                    tabla.Insertar(usuario, contraseña_hash,Fecha_Creacion);
                     JOptionPane.showMessageDialog(null, "Usuario Creado con exito");
                 } catch (NoSuchAlgorithmException ex) {
                     //Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);

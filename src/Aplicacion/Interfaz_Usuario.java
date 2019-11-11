@@ -5,17 +5,20 @@
  */
 package Aplicacion;
 
+import Nodos.Nodo_Hash;
+
 /**
  *
  * @author MiriamLeticia
  */
 public class Interfaz_Usuario extends javax.swing.JFrame {
-
+    private static Nodo_Hash user_actual;
     /**
      * Creates new form Interfaz_Usuario
      */
     public Interfaz_Usuario() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,17 +30,36 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jLabel1.setText("USAC FILE DRIVE");
+
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(594, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(368, Short.MAX_VALUE))
         );
 
         pack();
@@ -79,5 +101,12 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+    
+    public void Usuario(Nodo_Hash datos){
+      user_actual = datos;
+    }
 }
+
