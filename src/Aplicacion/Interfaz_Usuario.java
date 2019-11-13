@@ -67,6 +67,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jLabel1.setText("USAC FILE DRIVE");
@@ -140,9 +141,19 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
         btnAmodificar.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnAmodificar.setText("Modificar");
+        btnAmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmodificarActionPerformed(evt);
+            }
+        });
 
         btnAeliminar.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnAeliminar.setText("Eliminar");
+        btnAeliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAeliminarActionPerformed(evt);
+            }
+        });
 
         btnAcrear.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnAcrear.setText("Crear");
@@ -270,10 +281,14 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
     private void btnAcrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcrearActionPerformed
         String nombre = JOptionPane.showInputDialog(null, "Escriba el nombre de la Archivo");
-        Archivos.add(nombre);
-        CargarCarpetas();
-        CargarArchivos();
-        this.repaint();
+        if(Archivos.contains(nombre)){
+            JOptionPane.showMessageDialog(null, "La Carpeta: " + nombre + " ya existe");
+        }else{
+            Archivos.add(nombre);
+            CargarCarpetas();
+            CargarArchivos();
+            this.repaint();
+        }
     }//GEN-LAST:event_btnAcrearActionPerformed
 
     private void btnCeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCeliminarActionPerformed
@@ -285,6 +300,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             }
         }
         CargarCarpetas();
+        CargarArchivos();
         this.repaint();
     }//GEN-LAST:event_btnCeliminarActionPerformed
 
@@ -302,8 +318,17 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             }
         }
         CargarCarpetas();
+        CargarArchivos();
         this.repaint();
     }//GEN-LAST:event_btnCmodificarActionPerformed
+
+    private void btnAeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAeliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAeliminarActionPerformed
+
+    private void btnAmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmodificarActionPerformed
+        
+    }//GEN-LAST:event_btnAmodificarActionPerformed
 
     /**
      * @param args the command line arguments

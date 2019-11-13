@@ -15,112 +15,35 @@ import java.io.IOException;
  *
  * @author MiriamLeticia
  */
-public class ArbolAVL {
+public class ArbolAVL1 {
     private Nodo_AVL root;
     
-    public ArbolAVL(){
+    public ArbolAVL1(){
         this.root = null;
     }
     
-    private boolean vacia(){
-        return this.root == null;
-    }
-    
-    private int Altura(Nodo_AVL raiz){
-        if(raiz == null){
-            return 0;
+    private int altura(Nodo_AVL raiz){
+        int h = 0;
+        if(raiz != null){
+            int izquierdo = altura(raiz.getIzquierdo());
+            int derecho = altura(raiz.getDerecho());
+            int max_height = Math.max(izquierdo, izquierdo);
+            h = max_height + 1;
         }
-        return raiz.getAltura();
+        return h;
     }
     
     private int diferencia(Nodo_AVL raiz){
-        int b = 0;
-        b = Altura(raiz.getIzquierdo()) - Altura(raiz.getDerecho());
-        return b;
-    }
-    
-    private int Factor_Equilibrio(Nodo_AVL raiz){
-        if(raiz == null){
-            return 0;
+        int l_height = altura(raiz.getIzquierdo());
+        int r_height = altura(raiz.getDerecho());
+        int b_factor = l_height - r_height;
+        if(raiz.getIzquierdo()!= null){
+            raiz.getIzquierdo().setAltura(l_height);
         }
-        return Altura(raiz.getIzquierdo()) - Altura(raiz.getDerecho());
-    }
-    
-    private Nodo_AVL rotacionI(Nodo_AVL raiz){
-        Nodo_AVL y = raiz.getDerecho();
-        Nodo_AVL x = y.getIzquierdo();
-        y.setIzquierdo(raiz);
-        raiz.setDerecho(x);
-        int allt = 1 + Math.max(Altura(raiz.getIzquierdo()), Altura(raiz.getDerecho()));
-        raiz.setAltura(allt);
-        int balanceo = Factor_Equilibrio(raiz);
-        raiz.setFactor_Equilibrio(balanceo);
-        int allt1 = 1 + Math.max(Altura(y.getIzquierdo()), Altura(y.getDerecho()));
-        y.setAltura(allt1);
-        int balanceo1 = Factor_Equilibrio(y);
-        y.setFactor_Equilibrio(balanceo1);
-        return y;
-    }
-    
-    private Nodo_AVL rotacionD(Nodo_AVL raiz){
-        Nodo_AVL y = raiz.getIzquierdo();
-        Nodo_AVL x = y.getDerecho();
-        y.setDerecho(raiz);
-        raiz.setIzquierdo(x);
-        int allt = 1 + Math.max(Altura(raiz.getIzquierdo()), Altura(raiz.getDerecho()));
-        raiz.setAltura(allt);
-        int balanceo = Factor_Equilibrio(raiz);
-        raiz.setFactor_Equilibrio(balanceo);
-        int allt1 = 1 + Math.max(Altura(y.getIzquierdo()), Altura(y.getDerecho()));
-        y.setAltura(allt1);
-        int balanceo1 = Factor_Equilibrio(y);
-        y.setFactor_Equilibrio(balanceo1);
-        return y;
-    }
-    
-    public void Insertar(String nombre_archivo, String contenido, String creacion, String propietario){
-        Nodo_AVL aux = Insertar_AVL(root,nombre_archivo, contenido, creacion, propietario);
-        this.root = aux;
-    }
-    
-    private Nodo_AVL Insertar_AVL(Nodo_AVL raiz, String nombre_archivo, String contenido, String creacion, String propietario){
-        if(raiz == null){
-            raiz = new Nodo_AVL(nombre_archivo, contenido, creacion, propietario);
-        }else{
-            String nombre1 = nombre_archivo;
-            String nombre2 = raiz.getNombre_Archivo();
-            int comparador = nombre1.compareTo(nombre2);
-            if( comparador < 0){
-                Nodo_AVL aux1 = Insertar_AVL(raiz.getIzquierdo(),nombre_archivo, contenido, creacion, propietario);
-                raiz.setIzquierdo(aux1);
-            }else{
-                Nodo_AVL aux2 = Insertar_AVL(raiz.getDerecho(),nombre_archivo, contenido, creacion, propietario);
-                raiz.setDerecho(aux2);
-            }
+        if(raiz.getDerecho() != null){
+            raiz.getDerecho().setAltura(r_height);
         }
-        int allt = 1 + Math.max(Altura(raiz.getIzquierdo()), Altura(raiz.getDerecho()));
-        raiz.setAltura(allt);
-        int balanceo = Factor_Equilibrio(raiz);
-        raiz.setFactor_Equilibrio(balanceo);
-        if(balanceo < -1){
-            if(raiz.getDerecho().getFactor_Equilibrio() == -1){
-                return rotacionI(raiz);
-            }else{
-                Nodo_AVL aux1 = rotacionD(raiz);
-                raiz.setDerecho(aux1);
-                return rotacionI(raiz);
-            }
-        }
-        if(balanceo > 1){
-            if(raiz.getIzquierdo().getFactor_Equilibrio() == 1){
-                return rotacionD(raiz);
-            }else{
-                Nodo_AVL aux1 = rotacionI(raiz);
-                raiz.setIzquierdo(aux1);
-                return rotacionD(raiz);
-            }
-        }
-        return raiz;
+        return b_factor;
     }
     
     private Nodo_AVL rotacionRR(Nodo_AVL raiz){
@@ -155,6 +78,53 @@ public class ArbolAVL {
         raiz.setDerecho(rotacionLL(aux));
         System.out.println("Right-Left Rotation");
         return rotacionRR(raiz);
+    }
+    
+    public Nodo_AVL balancear(Nodo_AVL nodo){
+        int bal_factor = diferencia(nodo);
+        if (bal_factor > 1) {
+           if (diferencia(nodo.getIzquierdo()) > 0)
+              nodo = rotacionLL(nodo);
+           else
+              nodo = rotacionLR(nodo);
+        } else if (bal_factor < -1) {
+           if (diferencia(nodo.getDerecho()) > 0)
+              nodo = rotacionRL(nodo);
+           else
+              nodo= rotacionRR(nodo);
+        }
+        nodo.setFactor_Equilibrio(bal_factor);
+        return nodo;
+    }
+    
+    public Nodo_AVL Insertar(String nombre_archivo, String contenido, String creacion, String propietario){
+        Nodo_AVL aux = Insertar_AVL(root,nombre_archivo, contenido, creacion, propietario);
+        this.root = aux;
+        return this.root;
+    }   
+
+    public ArbolAVL1(Nodo_AVL root) {
+        this.root = root;
+    }
+
+    private Nodo_AVL Insertar_AVL(Nodo_AVL raiz, String nombre_archivo, String contenido, String creacion, String propietario) {
+        if(raiz == null){
+            raiz = new Nodo_AVL(nombre_archivo, contenido, creacion, propietario);
+        }else{
+            String nombre1 = nombre_archivo;
+            String nombre2 = raiz.getNombre_Archivo();
+            int comparador = nombre1.compareTo(nombre2);
+            if( comparador < 0){
+                Nodo_AVL aux1 = Insertar_AVL(raiz.getIzquierdo(),nombre_archivo, contenido, creacion, propietario);
+                raiz.setIzquierdo(aux1);
+                balancear(raiz);
+            }else{
+                Nodo_AVL aux2 = Insertar_AVL(raiz.getDerecho(),nombre_archivo, contenido, creacion, propietario);
+                raiz.setDerecho(aux2);
+                balancear(raiz);
+            }
+        }
+        return raiz;
     }
     
     public void Graficar(String user){
@@ -225,7 +195,6 @@ public class ArbolAVL {
         }
         return cuerpo;
     }
- 
 
     public Nodo_AVL getRoot() {
         return root;
@@ -234,7 +203,6 @@ public class ArbolAVL {
     public void setRoot(Nodo_AVL root) {
         this.root = root;
     }
-    
     
     
 }

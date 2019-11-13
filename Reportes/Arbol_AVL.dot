@@ -1,31 +1,118 @@
 digraph guia{ 
-node [shape = record];
-"Nombre Archivo: archivo1
- Contenido: xD
- FE: -1
- Altura: 0
- Creacion: hoy
- Propietario: user1";"Nombre Archivo: archivo1
- Contenido: xD
- FE: -1
- Altura: 1
- Creacion: hoy
- Propietario: user1"-> 
-"Nombre Archivo: archivo2
- Contenido: xD
- FE: -1
- Altura: 0
- Creacion: hoy
- Propietario: user1";"Nombre Archivo: archivo2
- Contenido: xD
- FE: -1
- Altura: 1
- Creacion: hoy
- Propietario: user1"-> 
-"Nombre Archivo: archivo3
- Contenido: xD
- FE: 0
- Altura: 0
- Creacion: hoy
- Propietario: user1";
+node [shape = record, style=filled, fillcolor=seashell2];
+"Nombre Archivo:archivo4
+ Contenido:xD
+ FE:0
+ Altura:3
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo4
+ Contenido:xD
+ FE:0
+ Altura:3
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo2
+ Contenido:xD
+ FE:1
+ Altura:2
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo2
+ Contenido:xD
+ FE:1
+ Altura:2
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo1
+ Contenido:xD
+ FE:-1
+ Altura:1
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo1
+ Contenido:xD
+ FE:-1
+ Altura:1
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo10
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo2
+ Contenido:xD
+ FE:1
+ Altura:2
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo3
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo4
+ Contenido:xD
+ FE:0
+ Altura:3
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo6
+ Contenido:xD
+ FE:-1
+ Altura:2
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo6
+ Contenido:xD
+ FE:-1
+ Altura:2
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo5
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo6
+ Contenido:xD
+ FE:-1
+ Altura:2
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo8
+ Contenido:xD
+ FE:0
+ Altura:1
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo8
+ Contenido:xD
+ FE:0
+ Altura:1
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo7
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo8
+ Contenido:xD
+ FE:0
+ Altura:1
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo9
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"; 
+
 }
