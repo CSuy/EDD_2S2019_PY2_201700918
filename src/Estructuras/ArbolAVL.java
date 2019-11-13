@@ -73,34 +73,43 @@ public class ArbolAVL {
     }
     
     public void Insertar(String nombre_archivo, String contenido, String creacion, String propietario){
-        Nodo_AVL nuevo = new Nodo_AVL(nombre_archivo, contenido, creacion, propietario);
-        this.root = Insertar_AVL(nuevo,root);
+        Nodo_AVL aux = Insertar_AVL(root,nombre_archivo, contenido, creacion, propietario);
+        this.root = aux;
     }
     
-    private Nodo_AVL Insertar_AVL(Nodo_AVL nuevo, Nodo_AVL raiz){
-        if(vacia() == true){
-            return nuevo;
-        }else if(nuevo.getContenido().compareTo(raiz.getContenido()) == -1){
-            raiz.setIzquierdo(Insertar_AVL(nuevo,raiz.getIzquierdo()));
+    private Nodo_AVL Insertar_AVL(Nodo_AVL raiz, String nombre_archivo, String contenido, String creacion, String propietario){
+        if(raiz == null){
+            raiz = new Nodo_AVL(nombre_archivo, contenido, creacion, propietario);
         }else{
-            raiz.setDerecho(Insertar_AVL(nuevo,raiz.getDerecho()));
+            String nombre1 = nombre_archivo;
+            String nombre2 = raiz.getNombre_Archivo();
+            int comparador = nombre1.compareTo(nombre2);
+            if( comparador < 0){
+                Nodo_AVL aux1 = Insertar_AVL(raiz.getIzquierdo(),nombre_archivo, contenido, creacion, propietario);
+                raiz.setIzquierdo(aux1);
+            }else{
+                Nodo_AVL aux2 = Insertar_AVL(raiz.getDerecho(),nombre_archivo, contenido, creacion, propietario);
+                raiz.setDerecho(aux2);
+            }
         }
         int balanceo = Factor_Equilibrio(raiz);
         raiz.setFactor_Equilibrio(balanceo);
         //Casos de Rotacion para AVL
         //Caso 1:
-        if(balanceo > 1 && nuevo.getContenido().compareTo(raiz.getIzquierdo().getContenido()) == -1){
+        if(balanceo > 1 && nombre_archivo.compareTo(raiz.getIzquierdo().getContenido()) == -1){
             return rotacionD(raiz);
         }
-        if(balanceo < -1 && nuevo.getContenido().compareTo(raiz.getIzquierdo().getContenido()) == 1){
+        if(balanceo < -1 && nombre_archivo.compareTo(raiz.getIzquierdo().getContenido()) == 1){
             return rotacionI(raiz);
         }
-        if(balanceo > 1 && nuevo.getContenido().compareTo(raiz.getIzquierdo().getContenido()) == 1){
-            raiz.setIzquierdo(rotacionI(raiz.getIzquierdo()));
+        if(balanceo > 1 && nombre_archivo.compareTo(raiz.getIzquierdo().getContenido()) == 1){
+            Nodo_AVL aux = rotacionI(raiz.getIzquierdo());
+            raiz.setIzquierdo(aux);
             return rotacionD(raiz);
         }
-        if(balanceo < -1 && nuevo.getContenido().compareTo(raiz.getDerecho().getContenido()) == -1){
-            raiz.setDerecho(rotacionD(raiz.getDerecho()));
+        if(balanceo < -1 && nombre_archivo.compareTo(raiz.getDerecho().getContenido()) == -1){
+            Nodo_AVL aux1 = rotacionD(raiz.getDerecho());
+            raiz.setDerecho(aux1);
             return rotacionI(raiz);
         }
         return raiz;
@@ -112,7 +121,7 @@ public class ArbolAVL {
         try{
             String ruta = "Reportes/Arbol_AVL.dot";
             String contenido = "digraph guia{ \n";
-            contenido +="node [shape = record];\\n";
+            contenido +="node [shape = record];\n";
             contenido += graficar1(aux);
             contenido += "\n}";
             File file = new File(ruta);
@@ -142,7 +151,7 @@ public class ArbolAVL {
             cuerpo += "Nombre Archivo: " + raiz.getNombre_Archivo();
             cuerpo += "\n Contenido: " + raiz.getContenido();
             cuerpo +=  "\n FE: " + raiz.getFactor_Equilibrio();
-            cuerpo += "\n Altura: " + raiz.getAltura();
+            cuerpo += "\n Altura: " + (raiz.getAltura() - 1);
             cuerpo += "\n Creacion: " + raiz.getCreacion();
             cuerpo += "\n Propietario: " + raiz.getUsuario();
             cuerpo += "\"";

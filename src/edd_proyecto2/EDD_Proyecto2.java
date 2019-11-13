@@ -21,7 +21,7 @@ public class EDD_Proyecto2 {
         Scanner n2 = new Scanner(System.in);
         boolean menu = true;
         int contador = 1;
-        String nombre = "archivo1";
+        String nombre = "archivo";
         while (menu == true) {
             System.out.println("Elija 1, 2 o 3");
             int j = n.nextInt();
@@ -29,12 +29,18 @@ public class EDD_Proyecto2 {
                 case 1:
                     System.out.println("Se ingreso un archivo al arbol");
                     a.Insertar(nombre+contador, "xD", "hoy", "user1");
+                    contador++;
                     break;
                 case 2:
-                    
+                    System.out.println("Generando grafica");
+                    a.Graficar("user1");
                     break;
                 case 3:
-                    
+                    try{
+                        System.out.println("La Raiz es: " + a.getRoot().getNombre_Archivo());
+                    }catch(Exception ex){
+                        System.out.println("Esta vacia");
+                    }
                     break;
                 case 4:
                     

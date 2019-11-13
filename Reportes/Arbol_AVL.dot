@@ -1,0 +1,31 @@
+digraph guia{ 
+node [shape = record];
+"Nombre Archivo: archivo1
+ Contenido: xD
+ FE: -1
+ Altura: 0
+ Creacion: hoy
+ Propietario: user1";"Nombre Archivo: archivo1
+ Contenido: xD
+ FE: -1
+ Altura: 1
+ Creacion: hoy
+ Propietario: user1"-> 
+"Nombre Archivo: archivo2
+ Contenido: xD
+ FE: -1
+ Altura: 0
+ Creacion: hoy
+ Propietario: user1";"Nombre Archivo: archivo2
+ Contenido: xD
+ FE: -1
+ Altura: 1
+ Creacion: hoy
+ Propietario: user1"-> 
+"Nombre Archivo: archivo3
+ Contenido: xD
+ FE: 0
+ Altura: 0
+ Creacion: hoy
+ Propietario: user1";
+}
