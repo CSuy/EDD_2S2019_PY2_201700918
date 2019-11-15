@@ -6,11 +6,15 @@ package Nodos;
  */
 public class Nodo_Pila {
     private Nodo_Pila siguiente;
-    private int valor;
+    private String razon;
+    private String fecha;
+    private String usuario;
 
-    public Nodo_Pila(int valor) {
+    public Nodo_Pila(String razon, String fecha, String usuario) {
+        this.razon = razon;
+        this.fecha = fecha;
+        this.usuario = usuario;
         this.siguiente = null;
-        this.valor = valor;
     }
 
     public Nodo_Pila getSiguiente() {
@@ -21,12 +25,28 @@ public class Nodo_Pila {
         this.siguiente = siguiente;
     }
 
-    public int getValor() {
-        return valor;
+    public String getRazon() {
+        return razon;
     }
 
-    public void setValor(int valor) {
-        this.valor = valor;
+    public void setRazon(String razon) {
+        this.razon = razon;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
     
     

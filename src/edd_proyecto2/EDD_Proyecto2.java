@@ -3,6 +3,7 @@ package edd_proyecto2;
 import Aplicacion.Inicio_Sesion;
 import Estructuras.ArbolAVL;
 import Estructuras.ArbolAVL1;
+import Estructuras.Matriz;
 import Estructuras.TablaHash;
 import Nodos.Nodo_Hash;
 import java.security.NoSuchAlgorithmException;
@@ -16,8 +17,42 @@ public class EDD_Proyecto2 {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         //Inicio_Sesion i = new Inicio_Sesion();
         //i.setVisible(true);
+        
         /*se pudo*/
-        ArbolAVL a = new ArbolAVL();
+        Matriz a = new Matriz();
+        Scanner n = new Scanner(System.in);
+        Scanner n1 = new Scanner(System.in);
+        Scanner n2 = new Scanner(System.in);
+        String carpeta_actual ="";
+        String carpeta_nueva = "";
+        a.crear_Raiz();
+        boolean menu = true;
+        while (menu == true) {
+            System.out.println("Elija 1, 2 o 3");
+            int j = n.nextInt();
+            switch (j) {
+                case 1:
+                    System.out.println("Carpeta Actual");
+                    carpeta_actual = n1.nextLine();
+                    System.out.println("Nueva Carpeta");
+                    carpeta_nueva = n2.nextLine();
+                    a.Insertar(carpeta_actual, carpeta_nueva);
+                    break;
+                case 2:
+                    a.Graficar("user1");
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                default:
+                    menu = false;
+                    break;
+            }
+        }
+        /*ArbolAVL a = new ArbolAVL(); 
         Scanner n = new Scanner(System.in);
         Scanner n1 = new Scanner(System.in);
         Scanner n2 = new Scanner(System.in);
@@ -52,7 +87,7 @@ public class EDD_Proyecto2 {
                     menu = false;
                     break;
             }
-        }
+        }*/
         /*TablaHash t = new TablaHash();
         Scanner n = new Scanner(System.in);
         Scanner n1 = new Scanner(System.in);
