@@ -22,7 +22,7 @@ public class EDD_Proyecto2 {
         Scanner n1 = new Scanner(System.in);
         Scanner n2 = new Scanner(System.in);
         boolean menu = true;
-        int contador = 1;
+        int contador = 10;
         String nombre = "archivo";
         while (menu == true) {
             System.out.println("Elija 1, 2 o 3");
@@ -38,14 +38,15 @@ public class EDD_Proyecto2 {
                     a.Graficar("user1");
                     break;
                 case 3:
-                    try{
-                        System.out.println("La Raiz es: " + a.getRoot().getNombre_Archivo());
-                    }catch(Exception ex){
-                        System.out.println("Esta vacia");
-                    }
+                    System.out.println("ingresa un nombre");
+                    String o = n1.nextLine();
+                    a.Insertar(o, "xD", "hoy", "user1");
+                    System.out.println("Se ingreso un archivo al arbol");
                     break;
                 case 4:
-                    
+                    System.out.println("Escriba el nodo que desea eliminar");
+                    String w = n2.nextLine();
+                    a.Eliminar(w);
                     break;
                 default:
                     menu = false;

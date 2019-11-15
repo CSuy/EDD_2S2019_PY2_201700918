@@ -1,38 +1,26 @@
 digraph guia{ 
 node [shape = record, style=filled, fillcolor=seashell2];
-"Nombre Archivo:archivo4
- Contenido:xD
- FE:0
- Altura:3
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo4
- Contenido:xD
- FE:0
- Altura:3
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo2
- Contenido:xD
- FE:1
- Altura:2
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo2
- Contenido:xD
- FE:1
- Altura:2
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo1
+"Nombre Archivo:archivo14
  Contenido:xD
  FE:-1
+ Altura:3
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo14
+ Contenido:xD
+ FE:-1
+ Altura:3
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo11
+ Contenido:xD
+ FE:0
  Altura:1
  Creacion:hoy
  Propietario:user1"; 
-"Nombre Archivo:archivo1
+"Nombre Archivo:archivo11
  Contenido:xD
- FE:-1
+ FE:0
  Altura:1
  Creacion:hoy
  Propietario:user1"-> 
@@ -42,77 +30,128 @@ node [shape = record, style=filled, fillcolor=seashell2];
  Altura:0
  Creacion:hoy
  Propietario:user1"; 
-"Nombre Archivo:archivo2
+null0[label="", style=invis]; 
+"Nombre Archivo:archivo10
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null0[style=invis]; 
+null1[label="", style=invis]; 
+"Nombre Archivo:archivo10
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null1[style=invis]; 
+"Nombre Archivo:archivo11
+ Contenido:xD
+ FE:0
+ Altura:1
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo12
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"; 
+null2[label="", style=invis]; 
+"Nombre Archivo:archivo12
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null2[style=invis]; 
+null3[label="", style=invis]; 
+"Nombre Archivo:archivo12
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null3[style=invis]; 
+"Nombre Archivo:archivo14
+ Contenido:xD
+ FE:-1
+ Altura:3
+ Creacion:hoy
+ Propietario:user1"-> 
+"Nombre Archivo:archivo17
+ Contenido:xD
+ FE:1
+ Altura:2
+ Creacion:hoy
+ Propietario:user1"; 
+"Nombre Archivo:archivo17
  Contenido:xD
  FE:1
  Altura:2
  Creacion:hoy
  Propietario:user1"-> 
-"Nombre Archivo:archivo3
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo4
- Contenido:xD
- FE:0
- Altura:3
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo6
+"Nombre Archivo:archivo15
  Contenido:xD
  FE:-1
- Altura:2
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo6
- Contenido:xD
- FE:-1
- Altura:2
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo5
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo6
- Contenido:xD
- FE:-1
- Altura:2
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo8
- Contenido:xD
- FE:0
  Altura:1
  Creacion:hoy
  Propietario:user1"; 
-"Nombre Archivo:archivo8
+null4[label="", style=invis]; 
+"Nombre Archivo:archivo15
  Contenido:xD
- FE:0
+ FE:-1
+ Altura:1
+ Creacion:hoy
+ Propietario:user1"-> null4[style=invis]; 
+"Nombre Archivo:archivo15
+ Contenido:xD
+ FE:-1
  Altura:1
  Creacion:hoy
  Propietario:user1"-> 
-"Nombre Archivo:archivo7
+"Nombre Archivo:archivo16
  Contenido:xD
  FE:0
  Altura:0
  Creacion:hoy
  Propietario:user1"; 
-"Nombre Archivo:archivo8
+null5[label="", style=invis]; 
+"Nombre Archivo:archivo16
  Contenido:xD
  FE:0
- Altura:1
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null5[style=invis]; 
+null6[label="", style=invis]; 
+"Nombre Archivo:archivo16
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null6[style=invis]; 
+"Nombre Archivo:archivo17
+ Contenido:xD
+ FE:1
+ Altura:2
  Creacion:hoy
  Propietario:user1"-> 
-"Nombre Archivo:archivo9
+"Nombre Archivo:archivo18
  Contenido:xD
  FE:0
  Altura:0
  Creacion:hoy
  Propietario:user1"; 
+null7[label="", style=invis]; 
+"Nombre Archivo:archivo18
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null7[style=invis]; 
+null8[label="", style=invis]; 
+"Nombre Archivo:archivo18
+ Contenido:xD
+ FE:0
+ Altura:0
+ Creacion:hoy
+ Propietario:user1"-> null8[style=invis]; 
 
 }
