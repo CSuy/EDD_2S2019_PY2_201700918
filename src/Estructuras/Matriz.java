@@ -23,59 +23,68 @@ public class Matriz {
         this.raiz = null;
     }
     
-    private void insertarC(String nombre){
+    private void insertarC(String nombre, String ruta1){
         Nodo_Matriz aux = this.raiz;
         int contador = 1;
         while(aux.getSiguiente()!=null){
             aux = aux.getSiguiente();
             contador++;
         }
-        Nodo_Matriz nuevo = new Nodo_Matriz(nombre,contador,0);
+        Nodo_Matriz nuevo = new Nodo_Matriz(nombre,contador,0,ruta1);
         aux.setSiguiente(nuevo);
     }
     
-    private void insertarF(String nombre){
+    private void insertarF(String nombre, String ruta1){
         Nodo_Matriz aux = this.raiz;
         int contador = 1;
         while(aux.getAbajo()!=null){
             aux = aux.getAbajo();
             contador++;
         }
-        Nodo_Matriz nuevo = new Nodo_Matriz(nombre,0,contador);
+        Nodo_Matriz nuevo = new Nodo_Matriz(nombre,0,contador,ruta1);
         aux.setAbajo(nuevo);
     }
     
     public void crear_Raiz(){
-        Nodo_Matriz nuevo = new Nodo_Matriz("",0,0);
+        Nodo_Matriz nuevo = new Nodo_Matriz("",0,0,"");
         this.raiz = nuevo;
         Carpeta_Raiz();
     }
     
     private void Carpeta_Raiz(){
-        insertarF("/");
-        insertarC("/");
+        insertarF("/","");
+        insertarC("/","");
     }
+    
     public void Insertar(String nombre, String C_nueva){
         String raices = "raiz" + nombre;
         String [] datos = raices.split("/");
             String Carpeta_Padre="";
+            String carpeta_padre1 = "";
             if(nombre.equals("/")){
                 Carpeta_Padre = "/" ;
             }else{
                 Carpeta_Padre = datos[datos.length-1];
+                if(datos.length == 2){
+                    carpeta_padre1 = "/";
+                }else{
+                    for (int i = 1; i < datos.length - 1 ; i++) {
+                        carpeta_padre1 += "/" + datos[i];
+                    }
+                }
             }
-            insertarF(C_nueva);
-            insertarC(C_nueva);
+            insertarF(C_nueva,nombre);
+            insertarC(C_nueva,nombre);
         if(Carpeta_Padre.equals("/")){
-            int x = enX(C_nueva);
-            int y = enY("/");
-            Nodo_Matriz nuevo = new Nodo_Matriz("/" + C_nueva,x,y);
+            int x = enX(C_nueva,nombre);
+            int y = enY("/","");
+            Nodo_Matriz nuevo = new Nodo_Matriz("/" + C_nueva,x,y,nombre);
             InsertarFila(nuevo);
             InsertarColumna(nuevo);
         }else{
-            int x = enX(C_nueva);
-            int y = enY(Carpeta_Padre);
-            Nodo_Matriz nuevo = new Nodo_Matriz(Carpeta_Padre + "/" + C_nueva,x,y);
+            int x = enX(C_nueva,nombre);
+            int y = enY(Carpeta_Padre,carpeta_padre1);
+            Nodo_Matriz nuevo = new Nodo_Matriz(Carpeta_Padre + "/" + C_nueva,x,y,nombre);
             InsertarFila(nuevo);
             InsertarColumna(nuevo);
         }
@@ -113,11 +122,11 @@ public class Matriz {
         }
     }
     
-    public int enX(String nombre){
+    public int enX(String nombre, String ruta){
         int contador=0;
         Nodo_Matriz aux = this.raiz;
         while(aux!=null){
-            if(aux.getNombre().equals(nombre)){
+            if(aux.getNombre().equals(nombre) && aux.getRutaDeAcceso().equals(ruta)){
                 contador = aux.getX();
             }
             aux= aux.getSiguiente();
@@ -125,11 +134,11 @@ public class Matriz {
         return contador;
     }
     
-    public int enY(String nombre){
+    public int enY(String nombre, String ruta){
         int contador=0;
         Nodo_Matriz aux = this.raiz;
         while(aux!=null){
-            if(aux.getNombre().equals(nombre)){
+            if(aux.getNombre().equals(nombre) && aux.getRutaDeAcceso().equals(ruta)){
                 contador = aux.getY();
             }
             aux= aux.getAbajo();

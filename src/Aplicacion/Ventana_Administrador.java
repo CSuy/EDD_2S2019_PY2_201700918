@@ -11,10 +11,15 @@ import Nodos.Nodo_Hash;
 import edd_proyecto2.Obtener_Hora;
 import edd_proyecto2.SHA256;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.FileReader;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +35,8 @@ public class Ventana_Administrador extends javax.swing.JFrame {
     SHA256 sha256 = new SHA256();
     ArrayList<String> problema = new ArrayList<>();
     int problemas = 0, con_exito = 0;
+    JTextField txtRuta1 = new JTextField();
+    FileNameExtensionFilter filtro = new FileNameExtensionFilter("archivos csv", "csv");
     public Ventana_Administrador() {
         initComponents();
         btnProblemas.setText("Con Problemas: " + problemas);
@@ -165,7 +172,8 @@ public class Ventana_Administrador extends javax.swing.JFrame {
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         try{
-            String ruta = txtRuta.getText();
+            AbrirVentana();
+            String ruta = txtRuta1.getText();
             FileReader leer = new FileReader(ruta);
             BufferedReader br = new BufferedReader(leer);
             String Fila="";
@@ -284,5 +292,20 @@ public class Ventana_Administrador extends javax.swing.JFrame {
         filaI[1]=razon;
         model.addRow(filaI);
         tabla_Problem.setModel(model);
+    }
+
+    private void AbrirVentana() {
+        JFileChooser h = new JFileChooser();
+        h.setFileFilter(new FileNameExtensionFilter("archivos csv", "csv"));
+        h.showOpenDialog(this);
+        File archivo =  h.getSelectedFile();
+        char a = (char) 92;
+        char b = (char) 47;
+        if(archivo != null){
+            txtRuta1.setText(archivo.getAbsolutePath());
+            String x = txtRuta1.getText().replace(a,b);
+            String[] p = x.split("/");
+            txtRuta.setText(p[p.length-1]);
+        }
     }
 }

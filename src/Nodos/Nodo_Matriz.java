@@ -13,15 +13,17 @@ public class Nodo_Matriz {
     private Nodo_Matriz siguiente;
     private Nodo_Matriz abajo;
     private String nombre;
+    private String rutaDeAcceso;
     private int X;
     private int Y;
 
-    public Nodo_Matriz(String nombre, int x, int y) {
+    public Nodo_Matriz(String nombre, int x, int y, String rutaacceso) {
         this.nombre = nombre;
         this.siguiente = null;
         this.abajo = null;
         this.X = x;
         this.Y = y;
+        this.rutaDeAcceso = rutaacceso;
     }
 
     public Nodo_Matriz getSiguiente() {
@@ -62,6 +64,14 @@ public class Nodo_Matriz {
 
     public void setY(int Y) {
         this.Y = Y;
+    }
+
+    public String getRutaDeAcceso() {
+        return rutaDeAcceso;
+    }
+
+    public void setRutaDeAcceso(String rutaDeAcceso) {
+        this.rutaDeAcceso = rutaDeAcceso;
     }
     
     
