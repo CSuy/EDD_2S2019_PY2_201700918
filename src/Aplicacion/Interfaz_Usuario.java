@@ -5,6 +5,7 @@
  */
 package Aplicacion;
 
+import Estructuras.Matriz;
 import Nodos.Nodo_Hash;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static Aplicacion.Inicio_Sesion.sesion_user;
+import App_Reportes.Reporte_Archivo;
+import Nodos.Nodo_Matriz;
 
 /**
  *
@@ -21,6 +25,10 @@ import javax.swing.JOptionPane;
  */
 public class Interfaz_Usuario extends javax.swing.JFrame {
     private static Nodo_Hash user_actual;
+    public static String nombre_usuarior;
+    static String ruta_direccion = "/";
+    boolean ya_cargue = true;
+    Matriz m = new Matriz();
     ArrayList<String> Archivos = new ArrayList<>();
     ArrayList<String> Carpetas = new ArrayList<>();
     String eliminar = "", modificar="";
@@ -37,6 +45,23 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         initComponents();
         CargarCarpetas();
         CargarArchivos();
+        txtUsuario.setText("");
+        txtRutaCarpeta.setText(ruta_direccion);
+        if(sesion_user!=null){
+            user_actual = sesion_user;
+            txtUsuario.setText("Bienvenido, "+user_actual.getUsuario());
+            nombre_usuarior = user_actual.getUsuario();
+            if(user_actual.getCarpetas()==null){
+                m.crear_Raiz();
+                user_actual.setCarpetas(m.getRaiz());
+                System.out.println("Cree la carpeta raiz");
+            }else{
+                m.setRaiz(user_actual.getCarpetas());
+                System.out.println("Ya tenia una carpeta");
+            }
+        }else{
+            System.out.println("NO HAY USUARIO");
+        }
         this.setLocationRelativeTo(null);
     }
 
@@ -50,21 +75,25 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnCmodificar = new javax.swing.JButton();
         btnCeliminar = new javax.swing.JButton();
-        btnCcrear = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btnCcrear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnAmodificar = new javax.swing.JButton();
         btnAeliminar = new javax.swing.JButton();
         btnAcrear = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnAsubir = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtRutaCarpeta = new javax.swing.JTextField();
         btnAcceder = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        btnMatriz = new javax.swing.JButton();
+        btnGrafo = new javax.swing.JButton();
+        btnArbol = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -72,8 +101,8 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jLabel1.setText("USAC FILE DRIVE");
 
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
-        jLabel2.setText("jLabel2");
+        txtUsuario.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        txtUsuario.setText("jLabel2");
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
 
@@ -93,6 +122,11 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("CARPETAS");
+
         btnCcrear.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnCcrear.setText("Crear");
         btnCcrear.addActionListener(new java.awt.event.ActionListener() {
@@ -100,11 +134,6 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 btnCcrearActionPerformed(evt);
             }
         });
-
-        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("CARPETAS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,12 +144,13 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCcrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCeliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(16, 16, 16))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCcrear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,7 +160,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCcrear)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCeliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCmodificar)
@@ -206,6 +236,11 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         );
 
         btnAcceder.setText("Acceder");
+        btnAcceder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccederActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -220,6 +255,28 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        btnMatriz.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        btnMatriz.setText("Reporte Matriz");
+        btnMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatrizActionPerformed(evt);
+            }
+        });
+
+        btnGrafo.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        btnGrafo.setText("Reporte Grafo");
+
+        btnArbol.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        btnArbol.setText("Reporte Arbol");
+
+        btnCerrarSesion.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -229,30 +286,44 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMatriz)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGrafo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnArbol)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
+                            .addComponent(txtUsuario))
+                        .addGap(18, 87, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                                .addComponent(btnAcceder))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txtRutaCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCerrarSesion))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnAcceder)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnMatriz)
+                    .addComponent(btnGrafo)
+                    .addComponent(btnArbol)
+                    .addComponent(btnCerrarSesion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario)
+                    .addComponent(txtRutaCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAcceder))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -261,7 +332,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,6 +344,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La Carpeta: " + nombre + " ya existe");
         }else{
             Carpetas.add(nombre);
+            m.Insertar(txtRutaCarpeta.getText(), nombre);
             CargarCarpetas();
             CargarArchivos();
             this.repaint();
@@ -330,6 +402,32 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAmodificarActionPerformed
 
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        Inicio_Sesion inicio_sesion = new Inicio_Sesion();
+        inicio_sesion.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatrizActionPerformed
+        m.Graficar(user_actual.getUsuario());
+        Reporte_Archivo reporte_archivo = new Reporte_Archivo();
+        reporte_archivo.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnMatrizActionPerformed
+
+    private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
+        String j = ruta_direccion;
+        ruta_direccion = txtRutaCarpeta.getText();
+        boolean existe = Buscar(ruta_direccion);
+        if(existe == true){
+            JOptionPane.showMessageDialog(null, "Accesando a la carpeta");
+        }else{
+            JOptionPane.showMessageDialog(null, "La Carpeta a la que desea acceder no existe");
+            txtRutaCarpeta.setText(j);
+            ruta_direccion = txtRutaCarpeta.getText();
+        }
+    }//GEN-LAST:event_btnAccederActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -370,24 +468,24 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAcrear;
     private javax.swing.JButton btnAeliminar;
     private javax.swing.JButton btnAmodificar;
+    private javax.swing.JButton btnArbol;
     private javax.swing.JButton btnAsubir;
     private javax.swing.JButton btnCcrear;
     private javax.swing.JButton btnCeliminar;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCmodificar;
+    private javax.swing.JButton btnGrafo;
+    private javax.swing.JButton btnMatriz;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtRutaCarpeta;
+    private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
     
-    public void Usuario(Nodo_Hash datos){
-      user_actual = datos;
-    }
-
     private void CargarArchivos() {
         try{
             int creacion = Archivos.size();
@@ -406,7 +504,6 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                     jPanel3.add(nomC1[i]);
                     posX += 80;
                 }
-                
             }
         }catch(Exception e){
             System.out.println("Se produjo un error");
@@ -415,6 +512,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
     private void CargarCarpetas() {
         try{
+            Revisar_Matriz();
             int creacion = Carpetas.size();
             posX = 10; posY = 10;
             jPanel3.removeAll();
@@ -442,6 +540,39 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         }catch(Exception e){
             System.out.println("Se produjo un error");
         }
+    }
+
+    private void Revisar_Matriz(){
+        if(ya_cargue){
+            if(user_actual != null){
+                Carpetas = new ArrayList<>();
+                Nodo_Matriz aux = user_actual.getCarpetas();
+                while(aux!=null){
+                    if(aux.getRutaDeAcceso().equals(ruta_direccion)){
+                        Carpetas.add(aux.getNombre());
+                    }
+                    aux = aux.getSiguiente();
+                }
+            }
+            ya_cargue = false;
+            System.out.println("Revise");
+        }else{
+            System.out.println("No revise matriz");
+        }
+    }
+
+    private boolean Buscar(String carpeta) {
+        if(carpeta.equals("/")){
+            return true;
+        }else{
+            String a = "raiz"+carpeta;
+            String [] aux = a.split("/");
+            String aux1 = aux[aux.length - 1];
+            if(Carpetas.contains(aux1)){
+                return true;
+            }
+        }
+        return false;
     }
     
     private class Accion implements ActionListener{

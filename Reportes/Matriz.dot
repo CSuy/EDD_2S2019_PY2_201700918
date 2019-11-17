@@ -5,103 +5,23 @@ digraph guia{
 nodo00[label="" ,rankdir=LR, group=0]; 
 nodo10[label="/" ,rankdir=LR, group=1]; 
 nodo20[label="EDD" ,rankdir=LR, group=2]; 
-nodo30[label="Proyecto2" ,rankdir=LR, group=3]; 
-nodo40[label="src" ,rankdir=LR, group=4]; 
-nodo50[label="hola" ,rankdir=LR, group=5]; 
-nodo60[label="Compi" ,rankdir=LR, group=6]; 
-nodo70[label="Proyecto2" ,rankdir=LR, group=7]; 
-nodo80[label="src" ,rankdir=LR, group=8]; 
-nodo90[label="prueba" ,rankdir=LR, group=9]; 
-nodo100[label="Reportes" ,rankdir=LR, group=10]; 
 } 
 {rank=same; 
 nodo00[label=" " , group=0]; 
 nodo10[label=" /" , group=1]; 
 nodo20[label=" EDD" , group=2]; 
-nodo30[label=" Proyecto2" , group=3]; 
-nodo40[label=" src" , group=4]; 
-nodo50[label=" hola" , group=5]; 
-nodo60[label=" Compi" , group=6]; 
-nodo70[label=" Proyecto2" , group=7]; 
-nodo80[label=" src" , group=8]; 
-nodo90[label=" prueba" , group=9]; 
-nodo100[label=" Reportes" , group=10]; 
 } 
 {rank=same; 
 nodo01[label=" /" , group=0]; 
 nodo21[label=" /EDD" , group=2]; 
-nodo61[label=" /Compi" , group=6]; 
 } 
 {rank=same; 
 nodo02[label=" EDD" , group=0]; 
-nodo32[label=" EDD/Proyecto2" , group=3]; 
-} 
-{rank=same; 
-nodo03[label=" Proyecto2" , group=0]; 
-nodo43[label=" Proyecto2/src" , group=4]; 
-nodo103[label=" Proyecto2/Reportes" , group=10]; 
-} 
-{rank=same; 
-nodo04[label=" src" , group=0]; 
-nodo54[label=" src/hola" , group=5]; 
-} 
-{rank=same; 
-nodo05[label=" hola" , group=0]; 
-} 
-{rank=same; 
-nodo06[label=" Compi" , group=0]; 
-nodo76[label=" Compi/Proyecto2" , group=7]; 
-} 
-{rank=same; 
-nodo07[label=" Proyecto2" , group=0]; 
-nodo87[label=" Proyecto2/src" , group=8]; 
-} 
-{rank=same; 
-nodo08[label=" src" , group=0]; 
-nodo98[label=" src/prueba" , group=9]; 
-} 
-{rank=same; 
-nodo09[label=" prueba" , group=0]; 
-} 
-{rank=same; 
-nodo010[label=" Reportes" , group=0]; 
 } 
 nodo00 -> nodo10[dir=both]; 
 nodo10 -> nodo20[dir=both]; 
-nodo20 -> nodo30[dir=both]; 
-nodo30 -> nodo40[dir=both]; 
-nodo40 -> nodo50[dir=both]; 
-nodo50 -> nodo60[dir=both]; 
-nodo60 -> nodo70[dir=both]; 
-nodo70 -> nodo80[dir=both]; 
-nodo80 -> nodo90[dir=both]; 
-nodo90 -> nodo100[dir=both]; 
 nodo01 -> nodo21[dir=both]; 
-nodo21 -> nodo61[dir=both]; 
-nodo02 -> nodo32[dir=both]; 
-nodo03 -> nodo43[dir=both]; 
-nodo43 -> nodo103[dir=both]; 
-nodo04 -> nodo54[dir=both]; 
-nodo06 -> nodo76[dir=both]; 
-nodo07 -> nodo87[dir=both]; 
-nodo08 -> nodo98[dir=both]; 
 nodo00 -> nodo01[dir=both]; 
 nodo01 -> nodo02[dir=both]; 
-nodo02 -> nodo03[dir=both]; 
-nodo03 -> nodo04[dir=both]; 
-nodo04 -> nodo05[dir=both]; 
-nodo05 -> nodo06[dir=both]; 
-nodo06 -> nodo07[dir=both]; 
-nodo07 -> nodo08[dir=both]; 
-nodo08 -> nodo09[dir=both]; 
-nodo09 -> nodo010[dir=both]; 
 nodo20 -> nodo21[dir=both]; 
-nodo30 -> nodo32[dir=both]; 
-nodo40 -> nodo43[dir=both]; 
-nodo50 -> nodo54[dir=both]; 
-nodo60 -> nodo61[dir=both]; 
-nodo70 -> nodo76[dir=both]; 
-nodo80 -> nodo87[dir=both]; 
-nodo90 -> nodo98[dir=both]; 
-nodo100 -> nodo103[dir=both]; 
 } 

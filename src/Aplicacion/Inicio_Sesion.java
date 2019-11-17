@@ -18,6 +18,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     TablaHash ta = new TablaHash();
     Nodo_Hash[] uu;
     SHA256 sha256 = new SHA256();
+    public static Nodo_Hash sesion_user;
     /**
      * Creates new form Inicio_Sesion
      */
@@ -140,10 +141,10 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                 r.setVisible(true);
                 dispose();
             }else if(user != null){
+                sesion_user = user;
                 String aux_contra = sha256.toHexString(sha256.getSHA(contraseña));
                 if(aux_contra.equals(user.getContraseña())){
                     Interfaz_Usuario ii = new Interfaz_Usuario();
-                    ii.Usuario(user);
                     ii.setVisible(true);
                     dispose();
                 }else{

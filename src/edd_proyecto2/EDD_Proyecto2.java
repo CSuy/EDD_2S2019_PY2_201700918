@@ -15,11 +15,11 @@ import java.util.Scanner;
 public class EDD_Proyecto2 {
     
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        //Inicio_Sesion i = new Inicio_Sesion();
-        //i.setVisible(true);
+        Inicio_Sesion i = new Inicio_Sesion();
+        i.setVisible(true);
         
         /*se pudo*/
-        Matriz a = new Matriz();
+        /*Matriz a = new Matriz();
         Scanner n = new Scanner(System.in);
         Scanner n1 = new Scanner(System.in);
         Scanner n2 = new Scanner(System.in);
@@ -51,7 +51,7 @@ public class EDD_Proyecto2 {
                     menu = false;
                     break;
             }
-        }
+        }*/
         /*ArbolAVL a = new ArbolAVL(); 
         Scanner n = new Scanner(System.in);
         Scanner n1 = new Scanner(System.in);

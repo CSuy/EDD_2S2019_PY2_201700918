@@ -213,5 +213,14 @@ public class Matriz {
             }
         return contenido;
     }
+
+    public Nodo_Matriz getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(Nodo_Matriz raiz) {
+        this.raiz = raiz;
+    }
+    
     
 }

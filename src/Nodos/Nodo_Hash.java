@@ -14,11 +14,13 @@ public class Nodo_Hash {
     private String Usuario;
     private String Contraseña;
     private String Creacion;
+    private Nodo_Matriz carpetas;
 
     public Nodo_Hash(String Usuario, String Contraseña, String Creacion) {
         this.Usuario = Usuario;
         this.Contraseña = Contraseña;
         this.Creacion = Creacion;
+        this.carpetas = null;
     }
 
 
@@ -53,4 +55,13 @@ public class Nodo_Hash {
     public void setCreacion(String Creacion){
         this.Creacion = Creacion;
     }
+
+    public Nodo_Matriz getCarpetas() {
+        return carpetas;
+    }
+
+    public void setCarpetas(Nodo_Matriz carpetas) {
+        this.carpetas = carpetas;
+    }
+    
 }
