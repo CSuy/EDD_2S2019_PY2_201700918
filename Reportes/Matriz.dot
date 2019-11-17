@@ -5,23 +5,53 @@ digraph guia{
 nodo00[label="" ,rankdir=LR, group=0]; 
 nodo10[label="/" ,rankdir=LR, group=1]; 
 nodo20[label="EDD" ,rankdir=LR, group=2]; 
+nodo30[label="Compi1" ,rankdir=LR, group=3]; 
+nodo40[label="Proyecto2" ,rankdir=LR, group=4]; 
+nodo50[label="SRC" ,rankdir=LR, group=5]; 
 } 
 {rank=same; 
 nodo00[label=" " , group=0]; 
 nodo10[label=" /" , group=1]; 
 nodo20[label=" EDD" , group=2]; 
+nodo30[label=" Compi1" , group=3]; 
+nodo40[label=" Proyecto2" , group=4]; 
+nodo50[label=" SRC" , group=5]; 
 } 
 {rank=same; 
 nodo01[label=" /" , group=0]; 
 nodo21[label=" /EDD" , group=2]; 
+nodo31[label=" /Compi1" , group=3]; 
 } 
 {rank=same; 
 nodo02[label=" EDD" , group=0]; 
+nodo42[label=" EDD/Proyecto2" , group=4]; 
+} 
+{rank=same; 
+nodo03[label=" Compi1" , group=0]; 
+} 
+{rank=same; 
+nodo04[label=" Proyecto2" , group=0]; 
+nodo54[label=" Proyecto2/SRC" , group=5]; 
+} 
+{rank=same; 
+nodo05[label=" SRC" , group=0]; 
 } 
 nodo00 -> nodo10[dir=both]; 
 nodo10 -> nodo20[dir=both]; 
+nodo20 -> nodo30[dir=both]; 
+nodo30 -> nodo40[dir=both]; 
+nodo40 -> nodo50[dir=both]; 
 nodo01 -> nodo21[dir=both]; 
+nodo21 -> nodo31[dir=both]; 
+nodo02 -> nodo42[dir=both]; 
+nodo04 -> nodo54[dir=both]; 
 nodo00 -> nodo01[dir=both]; 
 nodo01 -> nodo02[dir=both]; 
+nodo02 -> nodo03[dir=both]; 
+nodo03 -> nodo04[dir=both]; 
+nodo04 -> nodo05[dir=both]; 
 nodo20 -> nodo21[dir=both]; 
+nodo30 -> nodo31[dir=both]; 
+nodo40 -> nodo42[dir=both]; 
+nodo50 -> nodo54[dir=both]; 
 } 

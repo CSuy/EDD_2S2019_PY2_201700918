@@ -285,29 +285,30 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnMatriz)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGrafo)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnArbol)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUsuario))
-                        .addGap(18, 87, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtRutaCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCerrarSesion))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnAcceder)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnCerrarSesion)
+                                    .addComponent(btnAcceder)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRutaCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnMatriz)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGrafo)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnArbol)))
+                        .addGap(0, 137, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -421,6 +422,9 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         boolean existe = Buscar(ruta_direccion);
         if(existe == true){
             JOptionPane.showMessageDialog(null, "Accesando a la carpeta");
+            ya_cargue = true;
+            CargarCarpetas();
+            CargarArchivos();
         }else{
             JOptionPane.showMessageDialog(null, "La Carpeta a la que desea acceder no existe");
             txtRutaCarpeta.setText(j);
@@ -534,9 +538,11 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                     Accion a = new Accion();
                     carp[i].addActionListener(a);
                     posX += 80;
-                }
-                
+                }  
+            }else{
+                jPanel3.removeAll();
             }
+            jPanel3.repaint();
         }catch(Exception e){
             System.out.println("Se produjo un error");
         }
@@ -565,12 +571,30 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         if(carpeta.equals("/")){
             return true;
         }else{
+            Nodo_Matriz aux_r = user_actual.getCarpetas();
             String a = "raiz"+carpeta;
+            String [] aux1 = a.split("/");
+            String aux2 = "";
+            if(aux1.length != 2){
+                for (int i = 1; i < aux1.length - 1 ; i++) {
+                    aux2 += "/" + aux1[i];
+                }
+            }else{
+                aux2 = "/";
+            }
+            while(aux_r!=null){
+                if(aux_r.getNombre().equals(aux1[aux1.length - 1]) && aux_r.getRutaDeAcceso().equals(aux2)){
+                    return true;
+                }
+                aux_r = aux_r.getAbajo();
+            }
+            /*String a = "raiz"+carpeta;
             String [] aux = a.split("/");
             String aux1 = aux[aux.length - 1];
             if(Carpetas.contains(aux1)){
                 return true;
-            }
+            }*/
+            
         }
         return false;
     }
