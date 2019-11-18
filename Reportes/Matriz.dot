@@ -4,19 +4,19 @@ digraph guia{
  {rank=min; 
 nodo00[label="" ,rankdir=LR, group=0]; 
 nodo10[label="/" ,rankdir=LR, group=1]; 
-nodo20[label="EDD" ,rankdir=LR, group=2]; 
+nodo20[label="pruebas usac" ,rankdir=LR, group=2]; 
 } 
 {rank=same; 
 nodo00[label=" " , group=0]; 
 nodo10[label=" /" , group=1]; 
-nodo20[label=" EDD" , group=2]; 
+nodo20[label=" pruebas usac" , group=2]; 
 } 
 {rank=same; 
 nodo01[label=" /" , group=0]; 
-nodo21[label=" /EDD" , group=2]; 
+nodo21[label=" /pruebas usac" , group=2]; 
 } 
 {rank=same; 
-nodo02[label=" EDD" , group=0]; 
+nodo02[label=" pruebas usac" , group=0]; 
 } 
 nodo00 -> nodo10[dir=both]; 
 nodo10 -> nodo20[dir=both]; 

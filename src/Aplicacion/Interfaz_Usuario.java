@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static Aplicacion.Inicio_Sesion.sesion_user;
+import App_Reportes.Reporte_Arbol;
 import App_Reportes.Reporte_Archivo;
 import Estructuras.ArbolAVL;
 import Nodos.Nodo_AVL;
@@ -50,8 +51,6 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
      */
     public Interfaz_Usuario() {
         initComponents();
-        CargarCarpetas();
-        CargarArchivos();
         txtUsuario.setText("");
         txtRutaCarpeta.setText(ruta_direccion);
         if(sesion_user!=null){
@@ -69,6 +68,8 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         }else{
             System.out.println("NO HAY USUARIO");
         }
+        CargarCarpetas();
+        CargarArchivos();
         this.setLocationRelativeTo(null);
     }
 
@@ -427,6 +428,8 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAmodificarActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        ya_cargue = true;
+        ya_cargue1 = true;
         Inicio_Sesion inicio_sesion = new Inicio_Sesion();
         inicio_sesion.setVisible(true);
         dispose();
@@ -464,6 +467,9 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
     private void btnArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolActionPerformed
         arbol.Graficar(user_actual.getUsuario());
+        Reporte_Arbol reporte_arbol = new Reporte_Arbol();
+        reporte_arbol.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnArbolActionPerformed
 
     /**
