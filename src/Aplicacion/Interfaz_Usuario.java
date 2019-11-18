@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import static Aplicacion.Inicio_Sesion.sesion_user;
 import App_Reportes.Reporte_Arbol;
 import App_Reportes.Reporte_Archivo;
+import App_Reportes.Reporte_Grafo;
 import Estructuras.ArbolAVL;
 import Nodos.Nodo_AVL;
 import Nodos.Nodo_Matriz;
@@ -95,13 +96,15 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         btnAcrear = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnAsubir = new javax.swing.JButton();
+        btnACargaArchivos = new javax.swing.JButton();
         txtRutaCarpeta = new javax.swing.JTextField();
         btnAcceder = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
         btnMatriz = new javax.swing.JButton();
         btnGrafo = new javax.swing.JButton();
         btnArbol = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -150,16 +153,13 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCeliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(16, 16, 16))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnCcrear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnCmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCeliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCcrear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,6 +209,9 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         btnAsubir.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnAsubir.setText("Subir");
 
+        btnACargaArchivos.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        btnACargaArchivos.setText("Carga Archivos");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -221,6 +224,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnACargaArchivos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAsubir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAcrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAeliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -240,7 +244,9 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 .addComponent(btnAmodificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAsubir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(btnACargaArchivos)
+                .addContainerGap())
         );
 
         btnAcceder.setText("Acceder");
@@ -249,19 +255,6 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 btnAccederActionPerformed(evt);
             }
         });
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
 
         btnMatriz.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnMatriz.setText("Reporte Matriz");
@@ -295,6 +288,21 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             }
         });
 
+        jPanel5.setPreferredSize(new java.awt.Dimension(687, 5000));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 687, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5000, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(jPanel5);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -303,18 +311,18 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuario))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtUsuario)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnCerrarSesion)
-                                    .addComponent(btnAcceder)))))
+                                    .addComponent(btnAcceder)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -326,7 +334,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                                 .addComponent(btnGrafo)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnArbol)))
-                        .addGap(0, 137, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -345,13 +353,14 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                     .addComponent(txtRutaCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAcceder))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -462,7 +471,10 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAccederActionPerformed
 
     private void btnGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrafoActionPerformed
-        // TODO add your handling code here:
+        m.Graficar_Grafo(user_actual.getUsuario());
+        Reporte_Grafo reporte_grafo = new Reporte_Grafo();
+        reporte_grafo.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnGrafoActionPerformed
 
     private void btnArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolActionPerformed
@@ -508,6 +520,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnACargaArchivos;
     private javax.swing.JButton btnAcceder;
     private javax.swing.JButton btnAcrear;
     private javax.swing.JButton btnAeliminar;
@@ -525,7 +538,8 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtRutaCarpeta;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
@@ -547,16 +561,22 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                     carp1[i] = new JButton();
                     nomC1[i] = new JLabel();
                     carp1[i].setBounds(posX, posY, 80, 80);
-                    nomC1[i].setBounds(posX, posY + 80 , 80, 20);
+                    nomC1[i].setBounds(posX, posY + 90 , 80, 20);
                     nomC1[i].setText(Archivos.get(i));
                     ImageIcon icono = new ImageIcon("src/Prueba/archivo.png");
                     carp1[i].setIcon(icono);
-                    jPanel3.add(carp1[i]);
-                    jPanel3.add(nomC1[i]);
+                    jPanel5.add(carp1[i]);
+                    jPanel5.add(nomC1[i]);
+                    Accion1 a = new Accion1();
+                    carp[i].addActionListener(a);
                     posX += 80;
+                    if(posX >= 80*8){
+                        posX = 10;
+                        posY = posY + 130;
+                    }
                 }
             }
-            jPanel3.repaint();
+            jPanel5.repaint();
         }catch(Exception e){
             System.out.println("Se produjo un error");
         }
@@ -567,7 +587,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             Revisar_Matriz();
             int creacion = Carpetas.size();
             posX = 10; posY = 10;
-            jPanel3.removeAll();
+            jPanel5.removeAll();
             System.out.println(creacion);
             if(creacion > 0){
                 carp = new JButton[creacion];
@@ -581,14 +601,18 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                     nomC[i].setBounds(posX, posY + 90 , 80, 20);
                     nomC[i].setText(Carpetas.get(i));
                     carp[i].setName(Carpetas.get(i));
-                    jPanel3.add(carp[i]);
-                    jPanel3.add(nomC[i]);
+                    jPanel5.add(carp[i]);
+                    jPanel5.add(nomC[i]);
                     Accion a = new Accion();
                     carp[i].addActionListener(a);
                     posX += 80;
+                    if(posX >= 80*8){
+                        posX = 10;
+                        posY = posY + 130;
+                    }
                 }  
             }
-            jPanel3.repaint();
+            jPanel5.repaint();
         }catch(Exception e){
             System.out.println("Se produjo un error");
         }
@@ -756,6 +780,25 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 nomC[i].setBackground(java.awt.Color.cyan);
                 eliminar = carp[i].getName();
                 modificar = carp[i].getName();
+            }
+        }
+    }
+    
+}
+    private class Accion1 implements ActionListener{
+        
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < Archivos.size(); i++) {
+            if(nomC1[i].getBackground() == java.awt.Color.cyan ){
+                nomC1[i].setBackground(java.awt.Color.white);
+                System.out.println("Entre aqui");
+            }
+            if(e.getSource().equals(carp[i])){
+                nomC1[i].setOpaque(true);
+                nomC1[i].setBackground(java.awt.Color.cyan);
+                eliminar = carp1[i].getName();
+                modificar = carp1[i].getName();
             }
         }
     }

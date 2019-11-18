@@ -213,6 +213,63 @@ public class Matriz {
             }
         return contenido;
     }
+    
+    public void Graficar_Grafo(String user){
+        try{
+            String ruta = "Reportes/Grafo.dot";
+            String archivo = "Grafo_" + user + ".jpg";
+            String contenido = "digraph guia{ \n rankdir=LR; \n node[shape=circle]; \n";
+            contenido += grafica2();
+            contenido += "} \n";
+            File file = new File(ruta);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(contenido);
+            bw.close();
+            try{
+                String cmd = "dot -Tjpg " + ruta + " -o " + "Reportes/" + archivo;
+                try {
+                    Runtime.getRuntime().exec(cmd);
+                } catch (IOException ex) {
+                    System.out.println("No se genero a imagen");
+                }
+            }catch(Exception e){
+                System.out.println("No se genero a imagen");
+            }
+        }catch(IOException x){
+            System.out.println("Se produjo un error con el archivo dot");
+        }
+    }
+    
+    private String grafica2(){
+        String contenido = "";
+        Nodo_Matriz aux1 = this.raiz;
+        Nodo_Matriz auxC = this.raiz;
+        Nodo_Matriz auxF = this.raiz;
+        Nodo_Matriz prueba;
+        auxF = auxF.getSiguiente();
+        aux1 = aux1.getSiguiente();
+        while(aux1!=null){
+            contenido += "nodo" + aux1.getX() + aux1.getY() + "[label=\"" + aux1.getNombre() + "\" ]; \n";
+            aux1 = aux1.getSiguiente();
+        }
+        aux1 = this.raiz;
+        auxF = aux1;
+            while(auxF.getAbajo()!=null){
+                auxC = auxF.getAbajo();
+                if(auxC.getSiguiente()!=null){
+                    auxC = auxC.getSiguiente();
+                    prueba = auxC;
+                    while(auxC!=null){
+                        contenido += "nodo" + prueba.getY() + "0";
+                        contenido += "-> nodo" + auxC.getX() + "0; \n";
+                        auxC = auxC.getSiguiente();
+                    }
+                }
+                auxF = auxF.getAbajo();
+            }
+        return contenido;
+    }
 
     public Nodo_Matriz getRaiz() {
         return raiz;

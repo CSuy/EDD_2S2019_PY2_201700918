@@ -1,0 +1,27 @@
+digraph guia{ 
+ rankdir=LR; 
+ node[shape=circle]; 
+nodo10[label="/" ]; 
+nodo20[label="EDD" ]; 
+nodo30[label="Compi" ]; 
+nodo40[label="Orga" ]; 
+nodo50[label="Proyecto2" ]; 
+nodo60[label="Reportes" ]; 
+nodo70[label="Proyecto 2" ]; 
+nodo80[label="reportes 1" ]; 
+nodo90[label="prueba1" ]; 
+nodo100[label="prueba4" ]; 
+nodo110[label="prueba2" ]; 
+nodo120[label="copia1" ]; 
+nodo10-> nodo20; 
+nodo10-> nodo30; 
+nodo10-> nodo40; 
+nodo20-> nodo50; 
+nodo20-> nodo60; 
+nodo30-> nodo70; 
+nodo30-> nodo80; 
+nodo40-> nodo90; 
+nodo40-> nodo100; 
+nodo40-> nodo110; 
+nodo90-> nodo120; 
+} 

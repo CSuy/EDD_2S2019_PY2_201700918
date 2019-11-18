@@ -42,7 +42,7 @@ public class EDD_Proyecto2 {
                     a.Graficar("user1");
                     break;
                 case 3:
-                    
+                    a.Graficar_Grafo("user1");
                     break;
                 case 4:
                     
