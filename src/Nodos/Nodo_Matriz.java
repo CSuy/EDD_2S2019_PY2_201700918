@@ -16,6 +16,7 @@ public class Nodo_Matriz {
     private String rutaDeAcceso;
     private int X;
     private int Y;
+    private Nodo_AVL Archivos;
 
     public Nodo_Matriz(String nombre, int x, int y, String rutaacceso) {
         this.nombre = nombre;
@@ -24,6 +25,7 @@ public class Nodo_Matriz {
         this.X = x;
         this.Y = y;
         this.rutaDeAcceso = rutaacceso;
+        this.Archivos = null;
     }
 
     public Nodo_Matriz getSiguiente() {
@@ -72,6 +74,14 @@ public class Nodo_Matriz {
 
     public void setRutaDeAcceso(String rutaDeAcceso) {
         this.rutaDeAcceso = rutaDeAcceso;
+    }
+
+    public Nodo_AVL getArchivos() {
+        return Archivos;
+    }
+
+    public void setArchivos(Nodo_AVL Archivos) {
+        this.Archivos = Archivos;
     }
     
     

@@ -1,157 +1,43 @@
 digraph guia{ 
 node [shape = record, style=filled, fillcolor=seashell2];
-"Nombre Archivo:archivo14
- Contenido:xD
- FE:-1
- Altura:3
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo14
- Contenido:xD
- FE:-1
- Altura:3
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo11
- Contenido:xD
- FE:0
+"Nombre Archivo:prueba.c
+ Contenido:contenido c
+ FE:1
  Altura:1
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo11
- Contenido:xD
- FE:0
+ Creacion:17-11-2019 -::-    06:50:31 pm
+ Propietario:201700918"; 
+"Nombre Archivo:prueba.c
+ Contenido:contenido c
+ FE:1
  Altura:1
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo10
- Contenido:xD
+ Creacion:17-11-2019 -::-    06:50:31 pm
+ Propietario:201700918"-> 
+"Nombre Archivo:hola.h
+ Contenido:asdfaf
  FE:0
  Altura:0
- Creacion:hoy
- Propietario:user1"; 
+ Creacion:17-11-2019 -::-    06:51:10 pm
+ Propietario:201700918"; 
 null0[label="", style=invis]; 
-"Nombre Archivo:archivo10
- Contenido:xD
+"Nombre Archivo:hola.h
+ Contenido:asdfaf
  FE:0
  Altura:0
- Creacion:hoy
- Propietario:user1"-> null0[style=invis]; 
+ Creacion:17-11-2019 -::-    06:51:10 pm
+ Propietario:201700918"-> null0[style=invis]; 
 null1[label="", style=invis]; 
-"Nombre Archivo:archivo10
- Contenido:xD
+"Nombre Archivo:hola.h
+ Contenido:asdfaf
  FE:0
  Altura:0
- Creacion:hoy
- Propietario:user1"-> null1[style=invis]; 
-"Nombre Archivo:archivo11
- Contenido:xD
- FE:0
- Altura:1
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo12
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"; 
+ Creacion:17-11-2019 -::-    06:51:10 pm
+ Propietario:201700918"-> null1[style=invis]; 
 null2[label="", style=invis]; 
-"Nombre Archivo:archivo12
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"-> null2[style=invis]; 
-null3[label="", style=invis]; 
-"Nombre Archivo:archivo12
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"-> null3[style=invis]; 
-"Nombre Archivo:archivo14
- Contenido:xD
- FE:-1
- Altura:3
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo17
- Contenido:xD
+"Nombre Archivo:prueba.c
+ Contenido:contenido c
  FE:1
- Altura:2
- Creacion:hoy
- Propietario:user1"; 
-"Nombre Archivo:archivo17
- Contenido:xD
- FE:1
- Altura:2
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo15
- Contenido:xD
- FE:-1
  Altura:1
- Creacion:hoy
- Propietario:user1"; 
-null4[label="", style=invis]; 
-"Nombre Archivo:archivo15
- Contenido:xD
- FE:-1
- Altura:1
- Creacion:hoy
- Propietario:user1"-> null4[style=invis]; 
-"Nombre Archivo:archivo15
- Contenido:xD
- FE:-1
- Altura:1
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo16
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"; 
-null5[label="", style=invis]; 
-"Nombre Archivo:archivo16
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"-> null5[style=invis]; 
-null6[label="", style=invis]; 
-"Nombre Archivo:archivo16
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"-> null6[style=invis]; 
-"Nombre Archivo:archivo17
- Contenido:xD
- FE:1
- Altura:2
- Creacion:hoy
- Propietario:user1"-> 
-"Nombre Archivo:archivo18
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"; 
-null7[label="", style=invis]; 
-"Nombre Archivo:archivo18
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"-> null7[style=invis]; 
-null8[label="", style=invis]; 
-"Nombre Archivo:archivo18
- Contenido:xD
- FE:0
- Altura:0
- Creacion:hoy
- Propietario:user1"-> null8[style=invis]; 
+ Creacion:17-11-2019 -::-    06:50:31 pm
+ Propietario:201700918"-> null2[style=invis]; 
 
 }

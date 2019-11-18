@@ -17,7 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static Aplicacion.Inicio_Sesion.sesion_user;
 import App_Reportes.Reporte_Archivo;
+import Estructuras.ArbolAVL;
+import Nodos.Nodo_AVL;
 import Nodos.Nodo_Matriz;
+import edd_proyecto2.Obtener_Hora;
 
 /**
  *
@@ -28,7 +31,10 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     public static String nombre_usuarior;
     static String ruta_direccion = "/";
     boolean ya_cargue = true;
+    boolean ya_cargue1 = true;
+    boolean ya_asigne = true;
     Matriz m = new Matriz();
+    ArbolAVL arbol = new ArbolAVL();
     ArrayList<String> Archivos = new ArrayList<>();
     ArrayList<String> Carpetas = new ArrayList<>();
     String eliminar = "", modificar="";
@@ -37,6 +43,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     JLabel[] nomC;
     JButton[] carp1;
     JLabel[] nomC1;
+    static Nodo_Matriz nod = null;
     
     /**
      * Creates new form Interfaz_Usuario
@@ -265,9 +272,19 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
         btnGrafo.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnGrafo.setText("Reporte Grafo");
+        btnGrafo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrafoActionPerformed(evt);
+            }
+        });
 
         btnArbol.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnArbol.setText("Reporte Arbol");
+        btnArbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArbolActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesion");
@@ -354,10 +371,16 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
     private void btnAcrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcrearActionPerformed
         String nombre = JOptionPane.showInputDialog(null, "Escriba el nombre de la Archivo");
+        String contenido = JOptionPane.showInputDialog(null, "Escriba el contenido de la Archivo");
+        Obtener_Hora ob = new Obtener_Hora();
+        String creacion = ob.obtener_fecha();
+        String _usuario = user_actual.getUsuario();
         if(Archivos.contains(nombre)){
-            JOptionPane.showMessageDialog(null, "La Carpeta: " + nombre + " ya existe");
+            JOptionPane.showMessageDialog(null, "El Archivo: " + nombre + " ya existe");
         }else{
             Archivos.add(nombre);
+            arbol.Insertar(nombre, contenido, creacion, _usuario);
+            Buscar1(ruta_direccion);
             CargarCarpetas();
             CargarArchivos();
             this.repaint();
@@ -423,6 +446,9 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         if(existe == true){
             JOptionPane.showMessageDialog(null, "Accesando a la carpeta");
             ya_cargue = true;
+            ya_cargue1 = true;
+            Asignar_Raiz(ruta_direccion);
+            Buscar1(ruta_direccion);
             CargarCarpetas();
             CargarArchivos();
         }else{
@@ -431,6 +457,14 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             ruta_direccion = txtRutaCarpeta.getText();
         }
     }//GEN-LAST:event_btnAccederActionPerformed
+
+    private void btnGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrafoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGrafoActionPerformed
+
+    private void btnArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolActionPerformed
+        arbol.Graficar(user_actual.getUsuario());
+    }//GEN-LAST:event_btnArbolActionPerformed
 
     /**
      * @param args the command line arguments
@@ -492,7 +526,14 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     
     private void CargarArchivos() {
         try{
+            Revisar_Arbol();
             int creacion = Archivos.size();
+            System.out.println(creacion);
+            if(0 != Carpetas.size()){
+            } else { 
+                posX = 10;
+                posY = 10;
+            }
             if(creacion > 0){
                 carp1 = new JButton[creacion];
                 nomC1 = new JLabel[creacion];
@@ -509,6 +550,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                     posX += 80;
                 }
             }
+            jPanel3.repaint();
         }catch(Exception e){
             System.out.println("Se produjo un error");
         }
@@ -539,8 +581,6 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                     carp[i].addActionListener(a);
                     posX += 80;
                 }  
-            }else{
-                jPanel3.removeAll();
             }
             jPanel3.repaint();
         }catch(Exception e){
@@ -566,7 +606,46 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             System.out.println("No revise matriz");
         }
     }
+    
+    private void Revisar_Arbol(){
+        if(ya_cargue1){
+            if(ruta_direccion.equals("/")){
+                Nodo_Matriz aux_r = user_actual.getCarpetas();
+                aux_r = aux_r.getAbajo();
+                arbol.setRoot(aux_r.getArchivos());
+            }else{
+                Nodo_Matriz aux_r = user_actual.getCarpetas();
+                String a = "raiz"+ruta_direccion;
+                String [] aux1 = a.split("/");
+                String aux2 = "";
+                if(aux1.length != 2){
+                    for (int i = 1; i < aux1.length - 1 ; i++) {
+                        aux2 += "/" + aux1[i];
+                    }
+                }else{
+                    aux2 = "/";
+                }
+                while(aux_r!=null){
+                    if(aux_r.getNombre().equals(aux1[aux1.length - 1]) && aux_r.getRutaDeAcceso().equals(aux2)){
+                        arbol.setRoot(aux_r.getArchivos());
+                    }
+                    aux_r = aux_r.getAbajo();
+                }
 
+            }
+            ya_cargue1 = false;
+            System.out.println("Revise Matriz");
+            Archivos = new ArrayList<>();
+            if(arbol.getRoot()!=null){
+                String nodos = arbol.PreOrden();
+                String[] nodos1 = nodos.split(";");
+                for(int p = 0; p<nodos1.length; p++){
+                    Archivos.add(nodos1[p]);
+                }
+            }
+        }
+    }
+    
     private boolean Buscar(String carpeta) {
         if(carpeta.equals("/")){
             return true;
@@ -588,15 +667,73 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 }
                 aux_r = aux_r.getAbajo();
             }
-            /*String a = "raiz"+carpeta;
-            String [] aux = a.split("/");
-            String aux1 = aux[aux.length - 1];
-            if(Carpetas.contains(aux1)){
-                return true;
-            }*/
             
         }
         return false;
+    }
+    
+    private void Buscar1(String carpeta){
+        if(carpeta.equals("/")){
+            Nodo_Matriz aux_r = user_actual.getCarpetas();
+            aux_r = aux_r.getAbajo();
+            aux_r.setArchivos(arbol.getRoot());
+        }else{
+            Nodo_Matriz aux_r = user_actual.getCarpetas();
+            String a = "raiz"+carpeta;
+            String [] aux1 = a.split("/");
+            String aux2 = "";
+            if(aux1.length != 2){
+                for (int i = 1; i < aux1.length - 1 ; i++) {
+                    aux2 += "/" + aux1[i];
+                }
+            }else{
+                aux2 = "/";
+            }
+            while(aux_r!=null){
+                if(aux_r.getNombre().equals(aux1[aux1.length - 1]) && aux_r.getRutaDeAcceso().equals(aux2)){
+                    aux_r.setArchivos(arbol.getRoot());
+                }
+                aux_r = aux_r.getAbajo();
+            }
+            
+        }
+        
+    }
+
+    private void Asignar_Raiz(String ruta_direccion) {
+            if(ruta_direccion.equals("/")){
+                Nodo_Matriz aux_r = user_actual.getCarpetas();
+                aux_r = aux_r.getAbajo();
+                if(aux_r.getArchivos() != null){
+                    arbol.setRoot(aux_r.getArchivos());
+                }else{
+                    arbol.setRoot(null);
+                }
+                
+            }else{
+                Nodo_Matriz aux_r = user_actual.getCarpetas();
+                String a = "raiz"+ruta_direccion;
+                String [] aux1 = a.split("/");
+                String aux2 = "";
+                if(aux1.length != 2){
+                    for (int i = 1; i < aux1.length - 1 ; i++) {
+                        aux2 += "/" + aux1[i];
+                    }
+                }else{
+                    aux2 = "/";
+                }
+                while(aux_r!=null){
+                    if(aux_r.getNombre().equals(aux1[aux1.length - 1]) && aux_r.getRutaDeAcceso().equals(aux2)){
+                        if(aux_r.getArchivos() != null){
+                            arbol.setRoot(aux_r.getArchivos());
+                        }else{
+                            arbol.setRoot(null);
+                        }
+                    }
+                    aux_r = aux_r.getAbajo();
+                }
+
+            }
     }
     
     private class Accion implements ActionListener{

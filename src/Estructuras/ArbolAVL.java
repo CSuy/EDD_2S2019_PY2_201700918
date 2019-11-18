@@ -367,6 +367,26 @@ public class ArbolAVL {
         }        
         return nodo;
     }
+    
+    public String PreOrden(){
+        String cuerpo = "";
+        cuerpo += preOrden(root);
+        return cuerpo;
+    }
+    
+    private String preOrden(Nodo_AVL raiz){
+        String cuerpo = "";
+        if(raiz!=null){
+            if(raiz.getIzquierdo()!=null){
+                cuerpo += preOrden(raiz.getIzquierdo());
+            }
+            cuerpo += raiz.getNombre_Archivo() + ";";
+            if(raiz.getDerecho()!=null){
+                cuerpo += preOrden(raiz.getDerecho());
+            }
+        }
+        return cuerpo;
+    }
 
     public Nodo_AVL getRoot() {
         return root;
