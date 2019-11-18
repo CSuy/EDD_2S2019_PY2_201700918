@@ -18,7 +18,7 @@ public class EDD_Proyecto2 {
         Inicio_Sesion i = new Inicio_Sesion();
         i.setVisible(true);
         
-        /*se pudo*/
+        /*se pudo hacer*/
         /*Matriz a = new Matriz();
         Scanner n = new Scanner(System.in);
         Scanner n1 = new Scanner(System.in);
