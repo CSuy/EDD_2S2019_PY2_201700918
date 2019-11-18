@@ -218,9 +218,9 @@ public class Matriz {
         try{
             String ruta = "Reportes/Grafo.dot";
             String archivo = "Grafo_" + user + ".jpg";
-            String contenido = "digraph guia{ \n rankdir=LR; \n node[shape=circle]; \n";
+            String contenido = "digraph guia{ \n node[shape=circle]; \n";
             contenido += grafica2();
-            contenido += "} \n";
+            contenido += "overlap=false \n } \n";
             File file = new File(ruta);
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -239,6 +239,70 @@ public class Matriz {
         }catch(IOException x){
             System.out.println("Se produjo un error con el archivo dot");
         }
+    }
+    
+    public void Modificar(String ruta, String carpeta, String cambio){
+        Nodo_Matriz aux = this.raiz;
+        Nodo_Matriz aux1 = this.raiz;
+        Nodo_Matriz aux2=null;
+        while(aux!=null){
+            if(aux.getNombre().equals(carpeta) && aux.getRutaDeAcceso().equals(ruta)){
+                aux2 = aux.getAbajo();
+                aux.setNombre(cambio);
+            }
+            aux= aux.getSiguiente();
+        }
+        while(aux2!=null){
+            String nombre_nuevo = aux2.getNombre().replace(carpeta, cambio);
+            aux2.setNombre(nombre_nuevo);
+            aux2 = aux2.getAbajo();
+        }
+        while(aux1!=null){
+            if(aux1.getNombre().equals(carpeta) && aux1.getRutaDeAcceso().equals(ruta)){
+                aux1.setNombre(cambio);
+                aux2 = aux1.getSiguiente();
+            }
+            aux1 = aux1.getAbajo();
+        }
+        while(aux2!=null){
+            String nombre_nuevo = aux2.getNombre().replace(carpeta, cambio);
+            aux2.setNombre(nombre_nuevo);
+            aux2 = aux2.getSiguiente();
+        }
+        aux1 = this.raiz;
+        String ruta_aux="";
+        while(aux1!=null){
+            if(aux1.getRutaDeAcceso().equals(ruta+carpeta)){
+                ruta_aux = aux1.getRutaDeAcceso().replace(carpeta, cambio);
+                aux1.setRutaDeAcceso(ruta_aux);
+            }else{
+                if(aux1.getRutaDeAcceso().contains(carpeta)){
+                    ruta_aux = aux1.getRutaDeAcceso().replace(carpeta, cambio);
+                    aux1.setRutaDeAcceso(ruta_aux);
+                }
+            }
+            aux1 = aux1.getSiguiente();
+        }
+        aux1 = this.raiz;
+        ruta_aux="";
+        while(aux1!=null){
+            if(aux1.getRutaDeAcceso().equals(ruta+carpeta)){
+                ruta_aux = aux1.getRutaDeAcceso().replace(carpeta, cambio);
+                aux1.setRutaDeAcceso(ruta_aux);
+            }else{
+                if(aux1.getRutaDeAcceso().contains(carpeta)){
+                    ruta_aux = aux1.getRutaDeAcceso().replace(carpeta, cambio);
+                    aux1.setRutaDeAcceso(ruta_aux);
+                }
+                
+            }
+            aux1 = aux1.getAbajo();
+        }
+    }
+    
+    public void Eliminar(String ruta, String carpeta){
+        Nodo_Matriz actual = this.raiz;
+        Nodo_Matriz anterior = null;
     }
     
     private String grafica2(){

@@ -1,0 +1,15 @@
+digraph guia{ 
+tbl [
+shape=plaintext
+label=<
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td></td></tr> 
+<tr><td>Razon:Se modifico el nombre de: Hola.txt Por: prueba.txt Fecha:18-11-2019 -::-    06:27:46 am Usuario:201700918</td></tr> 
+<tr><td>Razon:Se Creo el archivo: dfjañfdaf Fecha:18-11-2019 -::-    06:27:31 am Usuario:201700918</td></tr> 
+<tr><td>Razon:Crea Carpeta: practica 2 Fecha:18-11-2019 -::-    06:27:11 am Usuario:201700918</td></tr> 
+<tr><td>Razon:Se Cargaron 4 Archivos Fecha:18-11-2019 -::-    06:26:54 am Usuario:201700918</td></tr> 
+<tr><td>Razon:Crea Carpeta: edd Fecha:18-11-2019 -::-    06:26:39 am Usuario:201700918</td></tr> 
+
+</table>
+>];
+}

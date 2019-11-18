@@ -15,12 +15,14 @@ public class Nodo_Hash {
     private String Contraseña;
     private String Creacion;
     private Nodo_Matriz carpetas;
+    private Nodo_Pila bitacora;
 
     public Nodo_Hash(String Usuario, String Contraseña, String Creacion) {
         this.Usuario = Usuario;
         this.Contraseña = Contraseña;
         this.Creacion = Creacion;
         this.carpetas = null;
+        this.bitacora = null;
     }
 
 
@@ -62,6 +64,14 @@ public class Nodo_Hash {
 
     public void setCarpetas(Nodo_Matriz carpetas) {
         this.carpetas = carpetas;
+    }
+
+    public Nodo_Pila getBitacora() {
+        return bitacora;
+    }
+
+    public void setBitacora(Nodo_Pila bitacora) {
+        this.bitacora = bitacora;
     }
     
 }

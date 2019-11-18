@@ -11,37 +11,30 @@ import java.io.IOException;
  * @author MiriamLeticia
  */
 public class Pila {
-    public Nodo_Pila cima;
-    public int tam;
+    private Nodo_Pila cima;
+    private int tam;
 
     public Pila() {
         this.cima = null;
         this.tam = 0;
     }
     
-    public boolean estaVacia(){
-        if(cima==null){
-            return true;
-        }
-        return false;
-    }
-    
     public void insertarPila(String razon, String timestap, String user){
         Nodo_Pila nuevo = new Nodo_Pila(razon, timestap, user);
-        if(estaVacia()){
-            this.cima = nuevo;
-            this.tam ++;
+        if(cima == null){
+            cima = nuevo;
+            tam++;
         }else{
-            Nodo_Pila aux = cima;
-            this.cima = nuevo;
-            nuevo.setSiguiente(aux);
-            this.tam ++;
+            nuevo.setSiguiente(cima);
+            cima = nuevo;
+            tam++;
         }
     }
     
-    public void graficar(){
+    public void graficar(String user){
         try{
             String ruta = "Reportes/bitacora_cambios.dot";
+            String archivo = "Bitacora_" + user + ".jpg";
             String contenido = "digraph guia{ \n";
             contenido += "tbl [\n";
             contenido += "shape=plaintext\n";
@@ -58,7 +51,7 @@ public class Pila {
             bw.write(contenido);
             bw.close();
             try{
-                String cmd = "dot -Tjpg " + ruta + " -o " + "Reportes/Bitacora.jpg";
+                String cmd = "dot -Tjpg " + ruta + " -o " + "Reportes/"+archivo;
                 try {
                     Runtime.getRuntime().exec(cmd);
                 } catch (IOException ex) {
@@ -76,11 +69,29 @@ public class Pila {
         String cuerpo = "";
         Nodo_Pila aux = this.cima;
         int contador = 1;
-        while(contador<tam){
+        while(contador <= tam){
             contador++;
             cuerpo += "<tr><td>" + "Razon:" + aux.getRazon() + " Fecha:" + aux.getFecha() + " Usuario:" + aux.getUsuario() + "</td></tr> \n";
             aux = aux.getSiguiente();
         }
         return cuerpo;
     }
+
+    public Nodo_Pila getCima() {
+        return cima;
+    }
+
+    public void setCima(Nodo_Pila cima) {
+        this.cima = cima;
+    }
+
+    public int getTam() {
+        return tam;
+    }
+
+    public void setTam(int tam) {
+        this.tam = tam;
+    }
+    
+    
 }

@@ -1,24 +1,81 @@
 digraph guia{ 
 node [shape = record, style=filled, fillcolor=seashell2];
-"Nombre Archivo:prueba1.jpg
- Contenido:hola
+"Nombre Archivo:Hola.txt
+ Contenido:Hola mundo
+ FE:1
+ Altura:2
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"; 
+"Nombre Archivo:Hola.txt
+ Contenido:Hola mundo
+ FE:1
+ Altura:2
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> 
+"Nombre Archivo:Header.h
+ Contenido:este es archivo cabecera
+ FE:1
+ Altura:1
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"; 
+"Nombre Archivo:Header.h
+ Contenido:este es archivo cabecera
+ FE:1
+ Altura:1
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> 
+"Nombre Archivo:chrome.exe
+ Contenido:Ejecutable
  FE:0
  Altura:0
- Creacion:17-11-2019 -::-
- Propietario:csuy"; 
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"; 
 null0[label="", style=invis]; 
-"Nombre Archivo:prueba1.jpg
- Contenido:hola
+"Nombre Archivo:chrome.exe
+ Contenido:Ejecutable
  FE:0
  Altura:0
- Creacion:17-11-2019 -::-
- Propietario:csuy"-> null0[style=invis]; 
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> null0[style=invis]; 
 null1[label="", style=invis]; 
-"Nombre Archivo:prueba1.jpg
- Contenido:hola
+"Nombre Archivo:chrome.exe
+ Contenido:Ejecutable
  FE:0
  Altura:0
- Creacion:17-11-2019 -::-
- Propietario:csuy"-> null1[style=invis]; 
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> null1[style=invis]; 
+null2[label="", style=invis]; 
+"Nombre Archivo:Header.h
+ Contenido:este es archivo cabecera
+ FE:1
+ Altura:1
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> null2[style=invis]; 
+"Nombre Archivo:Hola.txt
+ Contenido:Hola mundo
+ FE:1
+ Altura:2
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> 
+"Nombre Archivo:Main.py
+ Contenido:Phyton scrip
+ FE:0
+ Altura:0
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"; 
+null3[label="", style=invis]; 
+"Nombre Archivo:Main.py
+ Contenido:Phyton scrip
+ FE:0
+ Altura:0
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> null3[style=invis]; 
+null4[label="", style=invis]; 
+"Nombre Archivo:Main.py
+ Contenido:Phyton scrip
+ FE:0
+ Altura:0
+ Creacion:18-11-2019 -::-    06:21:38 am
+ Propietario:201700918"-> null4[style=invis]; 
 
 }

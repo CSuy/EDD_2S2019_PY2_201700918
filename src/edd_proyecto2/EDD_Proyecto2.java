@@ -4,6 +4,7 @@ import Aplicacion.Inicio_Sesion;
 import Estructuras.ArbolAVL;
 import Estructuras.ArbolAVL1;
 import Estructuras.Matriz;
+import Estructuras.Pila;
 import Estructuras.TablaHash;
 import Nodos.Nodo_Hash;
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +18,6 @@ public class EDD_Proyecto2 {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         Inicio_Sesion i = new Inicio_Sesion();
         i.setVisible(true);
-        
         /*se pudo hacer*/
         /*Matriz a = new Matriz();
         Scanner n = new Scanner(System.in);

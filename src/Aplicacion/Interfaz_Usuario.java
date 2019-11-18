@@ -19,10 +19,23 @@ import static Aplicacion.Inicio_Sesion.sesion_user;
 import App_Reportes.Reporte_Arbol;
 import App_Reportes.Reporte_Archivo;
 import App_Reportes.Reporte_Grafo;
+import App_Reportes.Reporte_Pila;
 import Estructuras.ArbolAVL;
+import Estructuras.Pila;
 import Nodos.Nodo_AVL;
 import Nodos.Nodo_Matriz;
+import Nodos.Nodo_Pila;
 import edd_proyecto2.Obtener_Hora;
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -37,6 +50,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     boolean ya_asigne = true;
     Matriz m = new Matriz();
     ArbolAVL arbol = new ArbolAVL();
+    Pila bita = new Pila();
     ArrayList<String> Archivos = new ArrayList<>();
     ArrayList<String> Carpetas = new ArrayList<>();
     String eliminar = "", modificar="";
@@ -45,7 +59,10 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     JLabel[] nomC;
     JButton[] carp1;
     JLabel[] nomC1;
+    JTextField txtRuta1 = new JTextField();
     static Nodo_Matriz nod = null;
+    static Nodo_Pila aux_pila = null;
+    static int tam_pila = 0;
     
     /**
      * Creates new form Interfaz_Usuario
@@ -69,6 +86,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         }else{
             System.out.println("NO HAY USUARIO");
         }
+        InsertarCambios();
         CargarCarpetas();
         CargarArchivos();
         this.setLocationRelativeTo(null);
@@ -105,6 +123,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         btnCerrarSesion = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
+        btnBitacora = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -208,9 +227,19 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
         btnAsubir.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnAsubir.setText("Subir");
+        btnAsubir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsubirActionPerformed(evt);
+            }
+        });
 
         btnACargaArchivos.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
         btnACargaArchivos.setText("Carga Archivos");
+        btnACargaArchivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnACargaArchivosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -303,6 +332,14 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jPanel5);
 
+        btnBitacora.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+        btnBitacora.setText("Reporte Bitacora");
+        btnBitacora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBitacoraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -333,7 +370,9 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnGrafo)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnArbol)))
+                                .addComponent(btnArbol)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBitacora)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -341,12 +380,14 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnMatriz)
-                    .addComponent(btnGrafo)
-                    .addComponent(btnArbol)
-                    .addComponent(btnCerrarSesion))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(btnMatriz)
+                        .addComponent(btnGrafo)
+                        .addComponent(btnArbol)
+                        .addComponent(btnCerrarSesion))
+                    .addComponent(btnBitacora))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuario)
@@ -373,6 +414,10 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         }else{
             Carpetas.add(nombre);
             m.Insertar(txtRutaCarpeta.getText(), nombre);
+            Obtener_Hora ob = new Obtener_Hora();
+            String motivo = "Crea Carpeta: " + nombre;
+            bita.insertarPila(motivo, ob.obtener_fecha(), user_actual.getUsuario());
+            tam_pila++;
             CargarCarpetas();
             CargarArchivos();
             this.repaint();
@@ -390,6 +435,9 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         }else{
             Archivos.add(nombre);
             arbol.Insertar(nombre, contenido, creacion, _usuario);
+            String motivo = "Se Creo el archivo: " + nombre;
+            bita.insertarPila(motivo, creacion, user_actual.getUsuario());
+            tam_pila++;
             Buscar1(ruta_direccion);
             CargarCarpetas();
             CargarArchivos();
@@ -419,6 +467,11 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             for (String p: Carpetas) {
                 if (p.equals(modificar)) {
                    Carpetas.set(co, nombre);
+                   m.Modificar(ruta_direccion, modificar, nombre);
+                   Obtener_Hora ob = new Obtener_Hora();
+                   String motivo = "Se Modifico la Carpeta: " + nombre + " Por: " + nombre;
+                   bita.insertarPila(motivo, ob.obtener_fecha(), user_actual.getUsuario());
+                   tam_pila++;
                 }
                 co++;
             }
@@ -429,16 +482,67 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCmodificarActionPerformed
 
     private void btnAeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAeliminarActionPerformed
-        // TODO add your handling code here:
+        ArrayList<String> aux = new ArrayList<>(Archivos);
+        Archivos = new ArrayList<>();
+        for(String p: aux){
+            if(!p.equals(eliminar)){
+                Archivos.add(p);
+            }
+        }
+        Obtener_Hora ob = new Obtener_Hora();
+        String motivo = "Se Elimino el archivo: " + eliminar;
+        bita.insertarPila(motivo, ob.obtener_fecha(), user_actual.getUsuario());
+        tam_pila++;
+        arbol.Eliminar(eliminar);
+        Buscar1(ruta_direccion);
+        CargarCarpetas();
+        CargarArchivos();
+        this.repaint();
     }//GEN-LAST:event_btnAeliminarActionPerformed
 
     private void btnAmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmodificarActionPerformed
-        
+        String opcion = JOptionPane.showInputDialog(null, "Que Desea Modificar \n 1.Nombre \n 2.Contenido");
+        if(opcion.equals("1")){
+            String opcion1 = JOptionPane.showInputDialog(null, "Nuevo Nombre");
+            ArrayList<String> aux = new ArrayList<>(Archivos);
+            Archivos = new ArrayList<>();
+            for(String p: aux){
+                if(!p.equals(eliminar)){
+                    Archivos.add(p);
+                }
+            }
+            Nodo_AVL aux1 = arbol.buscarSubir(modificar);
+            arbol.Eliminar(eliminar);
+            Buscar1(ruta_direccion);
+            CargarCarpetas();
+            CargarArchivos();
+            this.repaint();
+            Obtener_Hora ob = new Obtener_Hora();
+            String motivo = "Se modifico el nombre de: " + eliminar + " Por: " + opcion1;
+            tam_pila++;
+            bita.insertarPila(motivo, ob.obtener_fecha(), user_actual.getUsuario());
+            Archivos.add(opcion1);
+            arbol.Insertar(opcion1, aux1.getContenido(), aux1.getCreacion(), aux1.getUsuario());
+            Buscar1(ruta_direccion);
+            CargarCarpetas();
+            CargarArchivos();
+            this.repaint();
+        }else if(opcion.equals("2")){
+            Obtener_Hora ob = new Obtener_Hora();
+            String opcion1 = JOptionPane.showInputDialog(null, "Cambio de Contenido");
+            String motivo = "Se modifico el contenido de: " + eliminar + " Por: " + opcion1;
+            tam_pila++;
+            bita.insertarPila(motivo, ob.obtener_fecha(), user_actual.getUsuario());
+            Nodo_AVL aux1 = arbol.buscarSubir(modificar);
+            aux1.setContenido(opcion1);
+        }
     }//GEN-LAST:event_btnAmodificarActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         ya_cargue = true;
         ya_cargue1 = true;
+        aux_pila = null;
+        tam_pila = 0;
         Inicio_Sesion inicio_sesion = new Inicio_Sesion();
         inicio_sesion.setVisible(true);
         dispose();
@@ -484,6 +588,73 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnArbolActionPerformed
 
+    private void btnACargaArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnACargaArchivosActionPerformed
+        try{
+            AbrirVentana();
+            String ruta = txtRuta1.getText();
+            FileReader leer = new FileReader(ruta);
+            BufferedReader br = new BufferedReader(leer);
+            String Fila="";
+            String nombre = "";
+            String contenido = "";
+            Obtener_Hora ob = new Obtener_Hora();
+            String creacion = ob.obtener_fecha();
+            String _usuario = user_actual.getUsuario();
+            boolean encabezado = false;
+            int contador = 0;
+            while((Fila=br.readLine())!= null){
+                String[] datos = Fila.split(",");
+                nombre = datos[0];
+                contenido = datos[1];
+                if(encabezado != false){
+                    creacion = ob.obtener_fecha();
+                    Archivos.add(nombre);
+                    arbol.Insertar(nombre, contenido, creacion, _usuario);
+                    Buscar1(ruta_direccion);
+                    CargarCarpetas();
+                    CargarArchivos();
+                    this.repaint();
+                    contador++;
+                }else{
+                    encabezado = true;
+                }
+            }
+            bita.insertarPila("Se Cargaron " + contador + " Archivos" , ob.obtener_fecha(), user_actual.getUsuario());
+            tam_pila++;
+            System.out.println("Agrege a la pila " + contador);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Se Produjo un error al cargar el archivo");
+        }
+    }//GEN-LAST:event_btnACargaArchivosActionPerformed
+
+    private void btnAsubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsubirActionPerformed
+        try{
+            String ruta = "Reportes/" + modificar +".txt";
+            Nodo_AVL aux = arbol.buscarSubir(modificar);
+            String contenido = aux.getContenido();
+            File file = new File(ruta);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(contenido);
+            bw.close();
+            Obtener_Hora ob = new Obtener_Hora();
+            String  motivo = "Se exporto el archivo: " + modificar;
+            bita.insertarPila(motivo, ob.obtener_fecha(), user_actual.getUsuario());
+            tam_pila++;
+            Desktop.getDesktop().open(file);
+        }catch(IOException x){
+            JOptionPane.showMessageDialog(null, "No se pudo crear el archivo");
+        }
+    }//GEN-LAST:event_btnAsubirActionPerformed
+
+    private void btnBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBitacoraActionPerformed
+        bita.graficar(user_actual.getUsuario());
+        user_actual.setBitacora(bita.getCima());
+        Reporte_Pila reporte_pila = new Reporte_Pila();
+        reporte_pila.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnBitacoraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -527,6 +698,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAmodificar;
     private javax.swing.JButton btnArbol;
     private javax.swing.JButton btnAsubir;
+    private javax.swing.JButton btnBitacora;
     private javax.swing.JButton btnCcrear;
     private javax.swing.JButton btnCeliminar;
     private javax.swing.JButton btnCerrarSesion;
@@ -560,15 +732,16 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 for (int i = 0; i < creacion; i++) {
                     carp1[i] = new JButton();
                     nomC1[i] = new JLabel();
+                    ImageIcon icono = new ImageIcon("src/Prueba/archivo.png");
+                    carp1[i].setIcon(icono);
                     carp1[i].setBounds(posX, posY, 80, 80);
                     nomC1[i].setBounds(posX, posY + 90 , 80, 20);
                     nomC1[i].setText(Archivos.get(i));
-                    ImageIcon icono = new ImageIcon("src/Prueba/archivo.png");
-                    carp1[i].setIcon(icono);
+                    carp1[i].setName(Archivos.get(i));
                     jPanel5.add(carp1[i]);
                     jPanel5.add(nomC1[i]);
-                    Accion1 a = new Accion1();
-                    carp[i].addActionListener(a);
+                    Acciones a = new Acciones();
+                    carp1[i].addActionListener(a);
                     posX += 80;
                     if(posX >= 80*8){
                         posX = 10;
@@ -578,7 +751,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
             }
             jPanel5.repaint();
         }catch(Exception e){
-            System.out.println("Se produjo un error");
+            System.out.println("Se produjo un error34");
         }
     }
 
@@ -765,6 +938,24 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
 
             }
     }
+
+    private void AbrirVentana() {
+        JFileChooser h = new JFileChooser();
+        h.setFileFilter(new FileNameExtensionFilter("archivos csv", "csv"));
+        h.showOpenDialog(this);
+        File archivo =  h.getSelectedFile();
+        char a = (char) 92;
+        char b = (char) 47;
+        if(archivo != null){
+            txtRuta1.setText(archivo.getAbsolutePath());
+            String x = txtRuta1.getText().replace(a,b);
+        }
+    }
+
+    private void InsertarCambios() {
+        bita.setCima(user_actual.getBitacora());
+        bita.setTam(tam_pila);
+    }
     
     private class Accion implements ActionListener{
         
@@ -785,7 +976,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
     }
     
 }
-    private class Accion1 implements ActionListener{
+    private class Acciones implements ActionListener{
         
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -794,7 +985,7 @@ public class Interfaz_Usuario extends javax.swing.JFrame {
                 nomC1[i].setBackground(java.awt.Color.white);
                 System.out.println("Entre aqui");
             }
-            if(e.getSource().equals(carp[i])){
+            if(e.getSource().equals(carp1[i])){
                 nomC1[i].setOpaque(true);
                 nomC1[i].setBackground(java.awt.Color.cyan);
                 eliminar = carp1[i].getName();

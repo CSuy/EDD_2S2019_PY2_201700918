@@ -149,45 +149,6 @@ public class ArbolAVL {
         }
     }
     
-    private String graficar1(Nodo_AVL raiz){
-        String cuerpo="";
-        if(raiz != null){
-            cuerpo += "\"";
-            cuerpo += "Nombre Archivo:" + raiz.getNombre_Archivo();
-            cuerpo += "\n Contenido:" + raiz.getContenido();
-            cuerpo +=  "\n FE:" + raiz.getFactor_Equilibrio();
-            cuerpo += "\n Altura:" + (raiz.getAltura() - 1);
-            cuerpo += "\n Creacion:" + raiz.getCreacion();
-            cuerpo += "\n Propietario:" + raiz.getUsuario();
-            cuerpo += "\"";
-            cuerpo += "; \n";
-            if(raiz.getIzquierdo() != null){
-                cuerpo += "\"";
-                cuerpo += "Nombre Archivo:" + raiz.getNombre_Archivo();
-                cuerpo += "\n Contenido:" + raiz.getContenido();
-                cuerpo +=  "\n FE:" + raiz.getFactor_Equilibrio();
-                cuerpo += "\n Altura:" + (raiz.getAltura() - 1);
-                cuerpo += "\n Creacion:" + raiz.getCreacion();
-                cuerpo += "\n Propietario:" + raiz.getUsuario();
-                cuerpo += "\"";
-                cuerpo += "-> \n";
-                cuerpo += graficar1(raiz.getIzquierdo());
-            }
-            if(raiz.getDerecho() != null){
-                cuerpo += "\"";
-                cuerpo += "Nombre Archivo:" + raiz.getNombre_Archivo();
-                cuerpo += "\n Contenido:" + raiz.getContenido();
-                cuerpo +=  "\n FE:" + raiz.getFactor_Equilibrio();
-                cuerpo += "\n Altura:" + (raiz.getAltura() - 1);
-                cuerpo += "\n Creacion:" + raiz.getCreacion();
-                cuerpo += "\n Propietario:" + raiz.getUsuario();
-                cuerpo += "\"";
-                cuerpo += "-> \n";
-                cuerpo += graficar1(raiz.getDerecho());
-            }
-        }
-        return cuerpo;
-    }
  
     private String graficar11(Nodo_AVL raiz){
         String cuerpo="";
@@ -289,7 +250,12 @@ public class ArbolAVL {
             nodo.setCreacion(aux.getCreacion());
             nodo.setNombre_Archivo(aux.getNombre_Archivo());
             Nodo_AVL aux1 = Eliminar_Nodo(aux);
-            nodo.getDerecho().setIzquierdo(aux1);
+            if(aux == nodo.getDerecho()){
+                nodo.setDerecho(aux1);
+            }else{
+                nodo.getDerecho().setIzquierdo(aux1);
+            }
+            
             System.out.println("Elimine el nodo con hijos");
         }else if(nodo.getIzquierdo()!= null){
             Nodo_AVL aux = nodo.getIzquierdo();
@@ -386,6 +352,29 @@ public class ArbolAVL {
             }
         }
         return cuerpo;
+    }
+    
+    public Nodo_AVL buscarSubir(String nombre){
+        Nodo_AVL aux = buscarSubir1(nombre,root);
+        return aux;
+    }
+    
+    private Nodo_AVL buscarSubir1(String nombre, Nodo_AVL raiz){
+        if(raiz!=null){
+            if(raiz.getNombre_Archivo().equals(nombre)){
+                return raiz;
+            }else{
+                String nombre1 = nombre;
+                String nombre2 = raiz.getNombre_Archivo();
+                int comparador = nombre1.compareToIgnoreCase(nombre2);
+                if( comparador < 0){
+                    return buscarSubir1(nombre, raiz.getIzquierdo());
+                }else{
+                    return buscarSubir1(nombre, raiz.getDerecho());
+                }
+            }
+        }
+        return raiz;
     }
 
     public Nodo_AVL getRoot() {
